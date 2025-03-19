@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Proyecto extends Model
 {
+    protected $fillable = [
+        'nombre',
+        'descripcion',
+        'fecha_inicio',
+        'estado',
+        'clientes_id',
+    ];
+
     //One to many relationship with Comprobante
     public function comprobantes(){
         return $this->hasMany(Comprobante::class);

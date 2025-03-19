@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
+    protected $fillable = [
+        'persona_id',
+    ];
     //One to one relation with cliente
     public function cliente(){
         return $this->hasOne(Cliente::class);
