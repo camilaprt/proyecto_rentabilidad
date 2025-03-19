@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Persona extends Model
 {
     protected $fillable = [
-        'persona_id',
+        'nombre',
+        'direccion',
+        'id_fiscal',
     ];
     //One to one relation with cliente
     public function cliente(){
