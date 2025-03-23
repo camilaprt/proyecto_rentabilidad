@@ -15,12 +15,12 @@ class Proyecto extends Model
 
     //One to many relationship with Comprobante
     public function comprobantes(){
-        return $this->hasMany(Comprobante::class);
+        return $this->hasMany(Comprobante::class,'proyectos_id');
     }
 
     //One to many relationship with Factura
     public function facturas(){
-        return $this->hasMany(Factura::class);
+        return $this->hasMany(Factura::class,'proyectos_id');
     }
 
     //One to one relationship with Cliente
