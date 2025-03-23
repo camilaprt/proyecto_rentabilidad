@@ -19,4 +19,9 @@ class Proveedore extends Model
     public function comprobantes(){
         return $this->hasMany(Comprobante::class);
     }
+
+    //One to many relationship with Factura
+    public function facturas(){
+        return $this->hasMany(Factura::class);
+    }
 }

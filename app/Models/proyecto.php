@@ -9,7 +9,6 @@ class Proyecto extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
-        'fecha_inicio',
         'estado',
         'clientes_id',
     ];
@@ -19,9 +18,14 @@ class Proyecto extends Model
         return $this->hasMany(Comprobante::class);
     }
 
+    //One to many relationship with Factura
+    public function facturas(){
+        return $this->hasMany(Factura::class);
+    }
+
     //One to one relationship with Cliente
     public function cliente(){
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class,'clientes_id');
     }
    
 }

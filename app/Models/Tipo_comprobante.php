@@ -4,18 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Tipo_comprobante extends Model
 {
     protected $fillable = [
-        'nombre',
+        'tipo',
     ];
-    
+
+
     //One to many relationship with Comprobante
     public function comprobantes(){
         return $this->hasMany(Comprobante::class);
-    }
-    //One to many relationship with Factura
-    public function facturas(){
-        return $this->hasMany(Factura::class);
     }
 }

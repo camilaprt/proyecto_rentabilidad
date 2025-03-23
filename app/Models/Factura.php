@@ -4,22 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Comprobante extends Model
+class Factura extends Model
 {
     protected $fillable = [
-        'numero_comprobante',
+        'numero_fra',
         'fecha',
-        'cantidad',
+        'base_imp',
+        'total',
+        'tipo_factura_id',
+        'tipo_impuesto_id',
         'categorias_id',
         'proyectos_id',
         'proveedores_id',
         'clientes_id',
-        'tipo_comprobante_id',
     ];
 
-    //One to one relationship with Tipo_comprobante
-    public function tipo_comprobante(){
-        return $this->belongsTo(Tipo_comprobante::class);
+    //One to one relationship with Tipo_factura
+    public function tipo_factura(){
+        return $this->belongsTo(Tipo_factura::class);
+    }
+    //One to one relationship with Tipo_impuesto
+    public function tipo_impuesto(){
+        return $this->belongsTo(Tipo_impuesto::class);
     }
 
     //One to one relationship with Categoria
@@ -34,12 +40,11 @@ class Comprobante extends Model
 
     //One to one relationship with Proveedore
     public function proveedore(){
-        return $this->belongsTo(Proveedore::class,'proveedores_id');
+        return $this->belongsTo(Proveedore::class, 'proveedores_id');
     }
 
     //One to one relationship with Cliente
     public function cliente(){
         return $this->belongsTo(Cliente::class,'clientes_id');
     }
-    
 }

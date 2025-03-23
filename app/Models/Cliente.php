@@ -28,5 +28,10 @@ class Cliente extends Model
         return $this->hasMany(Comprobante::class);
     }
 
+    //One to many relationship with Factura
+    public function facturas(){
+        return $this->hasMany(Factura::class);
+    }
+
 
 }
