@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre',45);
             $table->string('descripcion',45);
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
             $table->tinyInteger('estado')->default(1);
             $table->foreignId('clientes_id')->constrained('clientes');
             $table->timestamps();
