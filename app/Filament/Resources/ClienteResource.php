@@ -35,8 +35,7 @@ class ClienteResource extends Resource
                     ->label('Nombre')
                     ->required(),
                 TextInput::make('direccion')
-                    ->label('Direccion')
-                    ->required(),
+                    ->label('Direccion'),
                 TextInput::make('id_fiscal')
                     ->label('NIF')
                     ->required(),
