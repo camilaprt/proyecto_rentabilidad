@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -33,12 +34,17 @@ class ClienteResource extends Resource
                 ->schema([
                     TextInput::make('nombre')
                     ->label('Nombre')
-                    ->required(),
+                    ->required()
+                    ->maxLength(45),
                 TextInput::make('direccion')
-                    ->label('Direccion'),
+                    ->label('Direccion')
+                    ->maxLength(80)//validación interfaz
+                    ->rules(['max:80']),//validación backend
                 TextInput::make('id_fiscal')
-                    ->label('NIF')
-                    ->required(),
+                    ->label('ID Fiscal')
+                    ->required()
+                    ->maxLength(10)
+                    ->unique(ignoreRecord:true),//parámetro ignora el ID si se edita el mismo cliente.
                 ])->columnSpan(1)
             ]);
     }
@@ -59,6 +65,30 @@ class ClienteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                /*
+                Valida si cliente tiene asociado un proyecto antes de ser
+                eliminado
+                */
+                Tables\Actions\DeleteAction::make()
+                ->before(function ($record){
+                    if(! $record->puedeSerEliminado()){
+                        Notification::make()
+                        ->title('No se puede eliminar el cliente')
+                        ->body('Este cliente tiene proyectos asociados')
+                        ->danger()
+                        ->send();
+                         // Cancela la eliminación
+                        return false; 
+                    }
+                    //Borra cliente
+                    $record->delete();
+                     // Borra persona asociada 
+                    $record->persona()->delete();
+                    Notification::make()
+                    ->title('Cliente eliminado')
+                    ->success()
+                    ->send();
+                })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

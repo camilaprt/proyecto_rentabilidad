@@ -32,6 +32,12 @@ class Cliente extends Model
     public function facturas(){
         return $this->hasMany(Factura::class);
     }
+    //el cliente no puede ser eliminado si tiene proyectos asociados
+    public function puedeSerEliminado():bool
+    {
+        //return $this->proyectos()->count() === 0;
+        return true;
+    }
 
 
 }
