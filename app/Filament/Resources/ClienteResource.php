@@ -38,13 +38,16 @@ class ClienteResource extends Resource
                     ->maxLength(45),
                 TextInput::make('direccion')
                     ->label('Direccion')
-                    ->maxLength(80)//validación interfaz
-                    ->rules(['max:80']),//validación backend
+                    ->minLength(2)
+                    ->maxLength(255)//frontend validation
+                    ->rules(['max:255']),
+                    
                 TextInput::make('id_fiscal')
                     ->label('ID Fiscal')
                     ->required()
                     ->maxLength(10)
-                    ->unique(ignoreRecord:true),//parámetro ignora el ID si se edita el mismo cliente.
+                    ->unique(ignoreRecord:true) //parámetro ignora el ID si se edita el mismo cliente.
+                    ->validationAttribute('ID fiscal'),
                 ])->columnSpan(1)
             ]);
     }
@@ -56,7 +59,8 @@ class ClienteResource extends Resource
                 TextColumn::make('persona.nombre')
                 ->label('Nombre'),
                 TextColumn::make('persona.direccion')
-                ->label('Dirección'),
+                ->label('Dirección')
+                ->limit(50),
                 TextColumn::make('persona.id_fiscal')
                 ->label('ID fiscal'),           
             ])

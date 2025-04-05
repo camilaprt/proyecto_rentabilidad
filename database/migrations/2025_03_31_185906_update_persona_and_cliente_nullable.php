@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('persona_id')->nullable()->change();
         });
         //Para permitir a Filament crear la persona antes que el proveedor en ProveedoreResource
-        Schema::table('proveedore', function (Blueprint $table) {
+        Schema::table('proveedores', function (Blueprint $table) {
             $table->foreignId('persona_id')->nullable()->change();
         });
 
