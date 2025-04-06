@@ -9,6 +9,7 @@ class Factura extends Model
     protected $fillable = [
         'numero_fra',
         'fecha',
+        'descripcion',
         'base_imp',
         'total',
         'tipo_factura_id',
