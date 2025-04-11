@@ -11,8 +11,10 @@
     rel="stylesheet" />
   <!-- Local Tailwind -->
   <link rel="stylesheet" href="{{asset('css/tailwind.output.css')}}" />
+
   @livewireStyles
 </head>
+
 
 <body>
   <div class="flex h-screen bg-gray-50 dark:bg-gray-900">
@@ -49,12 +51,23 @@
         </ul>
       </div>
     </aside>
+
     <!-- Contenido principal -->
     <div class="flex-1 flex flex-col overflow-hidden">
       <!-- Aquí va el contenido de la página -->
       <main class="h-full pb-16 overflow-y-auto">
         <!-- Remove everything INSIDE this div to a really blank page -->
         <div class="container px-6 mx-auto grid">
+          <!-- Insert from this point to keep layout in place -->
+          <!-- Flash message -->
+          <div class="flex flex items-center justify-center">
+            @if (session('success'))
+            <div x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show = false,2000)" class="alert alert-success bg-green-100 text-green-700 p-4 rounded shadow-md">
+              <p>{{ session('success') }}</p>
+            </div>
+            @endif
+          </div>
+          <!-- END Flash message -->
           <h2
             class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{ $slot }}
@@ -65,6 +78,7 @@
     </div>
   </div>
   @livewireScripts
+
 </body>
 
 </html>

@@ -47,7 +47,7 @@ class GestionClientes extends Component
 
         Cliente::create(['persona_id' => $persona->id]);
         $this->cerrarModalCrear();
-        session()->flash('message', 'Cliente guardado exitosamente.');
+        session()->flash('success', 'Cliente guardado exitosamente.');
         return redirect()->to('/');
     }
 
