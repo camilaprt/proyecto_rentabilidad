@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Persona;
 use App\Models\Cliente;
 
+use function Laravel\Prompts\alert;
 
 class GestionClientes extends Component
 {
@@ -15,19 +16,26 @@ class GestionClientes extends Component
     public $modalCrear = false;
     public $modalEditar = false;
 
-    public function abrirModalCrear(){
+    public function abrirModalCrear()
+    {
         $this->modalCrear = true;
     }
-     public function cerrarModalCrear(){
+    public function cerrarModalCrear()
+    {
         $this->modalCrear = false;
+        $this->resetErrorBag(); //limpia mensajes de error
+        $this->resetValidation(); // impia errores de validación personalizados
+        $this->reset(['nombre', 'direccion', 'id_fiscal']); //limpia los campos
     }
 
-    public function guardarCliente(){
+
+    public function guardarCliente()
+    {
 
         $this->validate([
             'nombre' => 'required | max:45 | min:3',
-            'direccion' =>'max:45',
-            'id_fiscal' =>'required | max:10 | min:5'
+            'direccion' => 'max:45',
+            'id_fiscal' => 'required | max:10 | min:5'
         ]);
 
 
@@ -36,19 +44,11 @@ class GestionClientes extends Component
             'direccion' => $this->direccion,
             'id_fiscal' => $this->id_fiscal
         ]);
-        
+
         Cliente::create(['persona_id' => $persona->id]);
-        dump("cliente creado");
         $this->cerrarModalCrear();
-        $this->resetCampos();
-
-
-    }
-
-    public function resetCampos(){
-        $this->nombre = "";
-        $this->direccion = "";
-        $this->id_fiscal = "";
+        session()->flash('message', 'Cliente guardado exitosamente.');
+        return redirect()->to('/');
     }
 
     public function render()
