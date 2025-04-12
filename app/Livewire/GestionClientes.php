@@ -11,7 +11,7 @@ use function Laravel\Prompts\alert;
 class GestionClientes extends Component
 {
     public $clientes;
-    public $nombre, $direccion, $id_fiscal;
+    public $nombre, $direccion, $id_fiscal, $email;
     public $cliente_id, $persona_id;
     public $modalCrear = false;
     public $modalEditar = false;
@@ -25,7 +25,7 @@ class GestionClientes extends Component
         $this->modalCrear = false;
         $this->resetErrorBag(); //limpia mensajes de error
         $this->resetValidation(); // impia errores de validación personalizados
-        $this->reset(['nombre', 'direccion', 'id_fiscal']); //limpia los campos
+        $this->reset(['nombre', 'direccion', 'id_fiscal', 'email']); //limpia los campos
     }
 
 
@@ -34,15 +34,19 @@ class GestionClientes extends Component
 
         $this->validate([
             'nombre' => 'required | max:45 | min:3',
+            'email' => 'nullable|email|max:255|unique:personas,email',
             'direccion' => 'max:45',
-            'id_fiscal' => 'required | max:10 | min:5'
+            'id_fiscal' => 'required | max:10 | min:5',
+
         ]);
 
 
         $persona = Persona::create([
             'nombre' => $this->nombre,
+            'email' => $this->email,
             'direccion' => $this->direccion,
-            'id_fiscal' => $this->id_fiscal
+            'id_fiscal' => $this->id_fiscal,
+
         ]);
 
         Cliente::create(['persona_id' => $persona->id]);

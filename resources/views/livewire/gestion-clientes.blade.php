@@ -28,7 +28,7 @@
 
         <!-- Formulario Livewire -->
         <form wire:submit.prevent="guardarCliente">
-          <!-- Name Field -->
+          <!-- Nombre -->
           <label class="block text-sm">
             <span class="text-gray-700 dark:text-gray-400">Nombre</span>
             <input wire:model="nombre" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Jane Doe">
@@ -36,19 +36,27 @@
           @error('nombre')
           <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
           @enderror
-          <!-- Email Field -->
+          <!-- Email-->
+          <label class="block text-sm mt-4">
+            <span class="text-gray-700 dark:text-gray-400">Email</span>
+            <input wire:model="email" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="example@domain.com">
+          </label>
+          @error('email')
+          <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
+          @enderror
+          <!-- Direccion-->
           <label class="block text-sm mt-4">
             <span class="text-gray-700 dark:text-gray-400">Dirección</span>
-            <input wire:model="direccion" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="example@domain.com">
+            <input wire:model="direccion" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Av.Carlemnay 53">
           </label>
           @error('direccion')
           <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
           @enderror
 
-          <!-- NIF Field -->
+          <!-- NIF-->
           <label class="block text-sm mt-4">
             <span class="text-gray-700 dark:text-gray-400">NIF</span>
-            <input wire:model="id_fiscal" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="123456789">
+            <input wire:model="id_fiscal" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="12345678P">
           </label>
           @error('id_fiscal')
           <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
