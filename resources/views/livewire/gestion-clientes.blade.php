@@ -1,8 +1,5 @@
 <div>
 
-
-
-
   <!-- BOTÓN CREAR -->
   <div class="flex justify-between items-center">
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Clientes</h2>
@@ -11,13 +8,9 @@
     </button>
   </div>
 
-
-
-
-
-  <!-- MODAL CREAR -->
+  <!-- MODAL CREAR Y EDITAR -->
   <div>
-    @if($modalCrear)
+    @if($modalCrear || $modalEditar)
     <!-- Overlay -->
     <div class="fixed inset-0 z-40 bg-black opacity-50"></div>
 
@@ -28,10 +21,12 @@
       <!-- Contenido del Modal -->
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-xl sm:mx-4 sm:rounded-xl mx-auto z-50 relative">
         <!-- Título -->
-        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Nuevo Cliente</h3>
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">
+          @if($modalCrear) Nuevo Cliente @else Editar Cliente @endif
+        </h3>
 
         <!-- Formulario Livewire -->
-        <form wire:submit.prevent="guardarCliente">
+        <form wire:submit.prevent="{{$modalCrear ? 'guardarCliente' : 'actualizarCliente'}}">
           <!-- Nombre -->
           <label class="block text-sm">
             <span class="text-gray-700 dark:text-gray-400">Nombre</span>
@@ -69,12 +64,12 @@
           <!-- Botones -->
           <div class="mt-6 flex justify-end space-x-4">
             <!-- Botón Cancelar -->
-            <button type="button" wire:click="cerrarModalCrear" class="px-4 py-2 text-sm bg-gray-300 text-gray-800 font-medium rounded hover:bg-gray-400 focus:outline-none focus:shadow-outline">
+            <button type="button" wire:click="{{$modalCrear ? 'cerrarModalCrear' : 'cerrarModalEditar'}}" class="px-4 py-2 text-sm bg-gray-300 text-gray-800 font-medium rounded hover:bg-gray-400 focus:outline-none focus:shadow-outline">
               Cancelar</button>
 
             <!-- Botón Guardar -->
             <button type="submit" class="ml-2 px-4 py-2 text-sm bg-blue-500 text-white font-medium rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
-              Guardar
+              @if($modalCrear) Guardar @else Actualizar @endif
             </button>
           </div>
         </form>
@@ -82,7 +77,7 @@
     </div>
     @endif
   </div>
-
+  <!-- MODAL ELIMINAR -->
   <div>
     @if($modalEliminar)
     <!-- Overlay -->
@@ -146,7 +141,7 @@
               {{$cliente->persona->nombre}}
             </td>
             <td class="px-4 py-3 text-sm">
-              casino@gmail.com
+              {{$cliente->persona->email}}
             </td>
             <td class="px-4 py-3 text-sm">
               {{$cliente->persona->direccion}}
@@ -156,7 +151,9 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex items-center space-x-4 text-sm">
+                <!--BOTON EDITAR -->
                 <button
+                  wire:click="abrirModalEditar({{$cliente->id}})"
                   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                   aria-label="Edit">
                   <svg
@@ -168,6 +165,7 @@
                       d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                   </svg>
                 </button>
+                <!--BOTON ELIMINAR -->
                 <button
                   wire:click="abrirModalEliminar({{$cliente->id}})"
                   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
