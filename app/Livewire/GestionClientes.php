@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Persona;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\DB;
+
 
 use function Laravel\Prompts\alert;
 
@@ -15,6 +17,7 @@ class GestionClientes extends Component
     public $cliente_id, $persona_id;
     public $modalCrear = false;
     public $modalEditar = false;
+    public $modalEliminar = false;
 
     public function abrirModalCrear()
     {
@@ -28,6 +31,30 @@ class GestionClientes extends Component
         $this->reset(['nombre', 'direccion', 'id_fiscal', 'email']); //limpia los campos
     }
 
+    public function abrirModalEliminar($id)
+    {
+        $this->modalEliminar = true;
+        $this->cliente_id = $id;
+    }
+    public function cerrarModalEliminar()
+    {
+        $this->modalEliminar = false;
+    }
+    //el cliente_id lo completa el modalEliminar al abrirse
+    public function eliminarCliente()
+    {
+        try {
+            DB::transaction(function () {
+                $cliente = Cliente::findOrFail($this->cliente_id);
+                $cliente->persona()->delete();
+                $cliente->delete();
+            });
+            return redirect()->to('/')->with('success', 'Cliente eliminado');
+        } catch (\Exception $e) {
+            return redirect()->to('/')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
+    }
+
 
     public function guardarCliente()
     {
@@ -36,10 +63,8 @@ class GestionClientes extends Component
             'nombre' => 'required | max:45 | min:3',
             'email' => 'nullable|email|max:255|unique:personas,email',
             'direccion' => 'max:45',
-            'id_fiscal' => 'required | max:10 | min:5',
-
+            'id_fiscal' => 'required | max:10 | min:5'
         ]);
-
 
         $persona = Persona::create([
             'nombre' => $this->nombre,

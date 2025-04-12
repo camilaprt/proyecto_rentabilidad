@@ -69,6 +69,15 @@
             @endif
           </div>
           <!-- END Flash message -->
+          <!-- Flash message -->
+          <div class="flex flex items-center justify-center">
+            @if (session('error'))
+            <div x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show = false,2000)" class="alert alert-success bg-red-100 text-red-700 p-4 rounded shadow-md">
+              <p>{{ session('error') }}</p>
+            </div>
+            @endif
+          </div>
+          <!-- END Flash message -->
           <h2
             class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{ $slot }}

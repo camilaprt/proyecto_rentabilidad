@@ -11,6 +11,10 @@
     </button>
   </div>
 
+
+
+
+
   <!-- MODAL CREAR -->
   <div>
     @if($modalCrear)
@@ -79,6 +83,48 @@
     @endif
   </div>
 
+  <div>
+    @if($modalEliminar)
+    <!-- Overlay -->
+    <div class="fixed inset-0 z-40 bg-black opacity-50"></div>
+
+    <div class="fixed inset-0 z-50 flex items-center justify-center">
+      <!-- Superposición del modal (fondo oscuro) -->
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
+
+      <!-- Contenido del Modal -->
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-xl sm:mx-4 sm:rounded-xl mx-auto z-50 relative">
+        <!-- Título -->
+        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Eliminar Cliente</h3>
+
+        <!-- Descripción -->
+        <p class="text-sm text-gray-700 dark:text-gray-400 mb-4">
+          ¿Está seguro de que desea eliminar este cliente?
+        </p>
+
+        <!-- Botones -->
+        <div class="mt-6 flex justify-end space-x-4">
+          <!-- Botón Cancelar -->
+          <button
+            type="button"
+            wire:click="cerrarModalEliminar"
+            class="px-4 py-2 text-sm bg-gray-300 text-gray-800 font-medium rounded hover:bg-gray-400 focus:outline-none focus:shadow-outline">
+            Cancelar
+          </button>
+
+          <!-- Botón Eliminar -->
+          <button
+            type="button"
+            wire:click="eliminarCliente"
+            class="ml-2 px-4 py-2 text-sm bg-red-600 text-white font-medium rounded hover:bg-red-700 focus:outline-none focus:shadow-outline">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+    @endif
+  </div>
+
   <!-- TABLA -->
   <div class="w-full overflow-hidden rounded-lg shadow-xs">
     <div class="w-full overflow-x-auto">
@@ -123,6 +169,7 @@
                   </svg>
                 </button>
                 <button
+                  wire:click="abrirModalEliminar({{$cliente->id}})"
                   class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                   aria-label="Delete">
                   <svg
@@ -144,4 +191,5 @@
       </table>
     </div>
   </div>
+
 </div>
