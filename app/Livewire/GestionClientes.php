@@ -46,8 +46,8 @@ class GestionClientes extends Component
         try {
             DB::transaction(function () {
                 $cliente = Cliente::findOrFail($this->cliente_id);
-                $cliente->persona()->delete();
                 $cliente->delete();
+                $cliente->persona()->delete();
             });
             return redirect()->to('/')->with('success', 'Cliente eliminado');
         } catch (\Exception $e) {
