@@ -71,9 +71,9 @@ class GestionClientes extends Component
                 $cliente->persona()->delete();
             });
             //Mensaje flash
-            return redirect()->to('/')->with('success', 'Cliente eliminado');
+            return redirect()->to('/clientes')->with('success', 'Cliente eliminado');
         } catch (\Exception $e) {
-            return redirect()->to('/')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+            return redirect()->to('/clientes')->with('error', 'Ocurrió un error: ' . $e->getMessage());
         }
     }
 
@@ -103,9 +103,9 @@ class GestionClientes extends Component
             $this->cliente->persona->id_fiscal = $this->id_fiscal;
             $this->cliente->persona->save();
             //Mensaje flash
-            return redirect()->to('/')->with('success', 'Cliente actualizado');
+            return redirect()->to('/clientes')->with('success', 'Cliente actualizado');
         } catch (\Exception $e) {
-            return redirect()->to('/')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+            return redirect()->to('/clientes')->with('error', 'Ocurrió un error: ' . $e->getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ class GestionClientes extends Component
         Cliente::create(['persona_id' => $persona->id]);
         $this->cerrarModalCrear();
         //Mensaje flash
-        return redirect()->to('/')->with('success', 'Cliente guardado');
+        return redirect()->to('/clientes')->with('success', 'Cliente guardado');
     }
 
     public function render()

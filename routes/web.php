@@ -3,4 +3,8 @@
 use App\Livewire\GestionClientes;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', GestionClientes::class);
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
+Route::get('/clientes', GestionClientes::class)->name('clientes');
