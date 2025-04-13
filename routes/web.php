@@ -8,3 +8,4 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/clientes', GestionClientes::class)->name('clientes');
+Route::get('/proveedores', GestionClientes::class)->name('proveedores');
