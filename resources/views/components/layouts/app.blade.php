@@ -33,12 +33,30 @@
               <span class="ml-4">Dashboard</span>
             </a>
           </li>
+          <li class="relative px-6 py-3">
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+            <a href="{{ route('clientes') }}" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M4 6h16v12H4z M4 6a2 2 0 0 1 2 2 M20 6a2 2 0 0 0-2 2 M4 18a2 2 0 0 0 2-2 M20 18a2 2 0 0 1-2-2 M12 12a2 2 0 1 0 0-0.01" />
+              </svg>
+              <span class="ml-4">Ventas</span>
+            </a>
+          </li>
+          <li class="relative px-6 py-3">
+            <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
+            <a href="{{ route('compras') }}" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+              <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 14h6M9 10h6M5 4h14v16l-2-2-2 2-2-2-2 2-2-2-2 2z" />
+              </svg>
+              <span class="ml-4">Compras</span>
+            </a>
+          </li>
 
           <li class="relative px-6 py-3">
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
             <a href="{{ route('clientes') }}" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                <path d="M17 21H7a2 2 0 0 1-2-2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1a2 2 0 0 1-2 2zM12 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
               </svg>
               <span class="ml-4">Clientes</span>
             </a>
@@ -48,7 +66,7 @@
             <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
             <a href="{{ route('proveedores') }}" class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
               <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                <path d="M20 7h-3V6a2 2 0 00-2-2h-6a2 2 0 00-2 2v1H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM9 6h6v1H9V6z" />
               </svg>
               <span class="ml-4">Proveedores</span>
             </a>
@@ -66,12 +84,11 @@
           <!-- Insert from this point to keep layout in place -->
           <!-- Mensaje flash -->
           <livewire:flash-message></livewire:flash-message>
-
-          <h2
-            class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+          <div class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             {{ $slot }}
 
-          </h2>
+          </div>
+
         </div>
       </main>
     </div>
