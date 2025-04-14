@@ -1,11 +1,18 @@
 <div>
     <form wire:submit.prevent="guardarFactura">
-        <!-- BOTÓN CREAR -->
+        <!-- BOTÓN CREAR Y EDITAR -->
         <div class="flex justify-between items-center">
+            @if($modoEditar)
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Editar Compra</h2>
+            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Actualizar
+            </button>
+            @else
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Nueva Compra</h2>
             <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Guardar
             </button>
+            @endif
         </div>
         <div class="flex gap-4 items-stretch">
             <!-- Área izquierda (subir documento) -->
