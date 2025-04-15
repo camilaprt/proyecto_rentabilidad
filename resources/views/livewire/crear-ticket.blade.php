@@ -8,7 +8,7 @@
                 Actualizar
             </button>
             @else
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Nuevo Ticket - {{$tipo_comprobante_id}}</h2>
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Nuevo Ticket</h2>
             <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Guardar
             </button>
@@ -45,6 +45,7 @@
                         @error('proveedor_id')
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror
+
                     </label>
                     <!-- Número documento -->
                     <label class="block mt-4 text-sm w-full">
@@ -52,6 +53,7 @@
                             Numero documento
                         </span>
                         <input wire:model="num_comprobante" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="">
+
                         @error('numero_fra')
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror

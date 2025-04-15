@@ -18,6 +18,12 @@ class Comprobante extends Model
         'tipo_comprobante_id',
     ];
 
+    //Devuelve la fecha como un objeto carbon que luego vemos como dd-mm-YYYY
+    protected $casts = [
+        'fecha' => 'datetime',
+    ];
+
+
     //One to one relationship with Tipo_comprobante
     public function tipo_comprobante()
     {

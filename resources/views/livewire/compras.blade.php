@@ -77,34 +77,34 @@
                     </tr>
                 </thead>
                 <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">@foreach($facturas as $factura)
+                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">@foreach($compras as $compra)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->fecha->format('d-m-Y')}}
+                            {{$compra->fecha->format('d-m-Y')}}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->numero_fra}}
+                            {{$compra->numero}}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->tipo_factura->tipo}}
+                            {{$compra->tipo}}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->proveedore->persona->nombre}}
+                            {{$compra->proveedor}}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->descripcion}}
+                            {{$compra->descripcion}}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->base_imp}} €
+                            {{$compra->subtotal}} €
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            {{$factura->total}} €
+                            {{$compra->total}} €
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">
                                 <!--BOTON EDITAR -->
                                 <button
-                                    wire:click="editarFactura({{$factura->id}})"
+                                    wire:click="editarFactura({{$compra->id}})"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Edit">
                                     <svg
@@ -118,7 +118,7 @@
                                 </button>
                                 <!--BOTON ELIMINAR -->
                                 <button
-                                    wire:click="abrirModalEliminar({{$factura->id}})"
+                                    wire:click="abrirModalEliminar({{$compra->id}})"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Delete">
                                     <svg
