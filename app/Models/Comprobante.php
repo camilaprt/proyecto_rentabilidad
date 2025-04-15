@@ -10,6 +10,7 @@ class Comprobante extends Model
         'numero_comprobante',
         'fecha',
         'cantidad',
+        'descripcion',
         'categorias_id',
         'proyectos_id',
         'proveedores_id',
@@ -18,28 +19,32 @@ class Comprobante extends Model
     ];
 
     //One to one relationship with Tipo_comprobante
-    public function tipo_comprobante(){
+    public function tipo_comprobante()
+    {
         return $this->belongsTo(Tipo_comprobante::class);
     }
 
     //One to one relationship with Categoria
-    public function categoria(){
-        return $this->belongsTo(Categoria::class,'categorias_id');
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categorias_id');
     }
 
     //One to one relationship with Proyecto
-    public function proyecto(){
-        return $this->belongsTo(Proyecto::class,'proyectos_id');
+    public function proyecto()
+    {
+        return $this->belongsTo(Proyecto::class, 'proyectos_id');
     }
 
     //One to one relationship with Proveedore
-    public function proveedore(){
-        return $this->belongsTo(Proveedore::class,'proveedores_id');
+    public function proveedore()
+    {
+        return $this->belongsTo(Proveedore::class, 'proveedores_id');
     }
 
     //One to one relationship with Cliente
-    public function cliente(){
-        return $this->belongsTo(Cliente::class,'clientes_id');
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'clientes_id');
     }
-    
 }

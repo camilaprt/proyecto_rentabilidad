@@ -23,7 +23,7 @@ class Compras extends Component
     {
         $this->modalEliminar = false;
     }
-    //Redirige a componente CrearFactura
+    //Redirige a componente reutilizable CrearFactura
     public function editarFactura($id)
     {
         return redirect()->route('compras.editarfactura', [

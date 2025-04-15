@@ -16,7 +16,7 @@
     <!-- Flash message ERROR-->
     <div class="relative flex items-center justify-center">
         @if (session('error'))
-        <div x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show = false,2500)"
+        <div x-data="{show:true}" x-show="show" x-init="setTimeout(()=>show = false,3000)"
             class="absolute flex top-0 left-1/2 transform -translate-x-1/2 mt-4 bg-red-100 text-red-700 p-4 rounded shadow-md z-50">
             <!-- Icono-->
             <svg class="w-6 h-6 mr-3 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

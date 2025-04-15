@@ -67,6 +67,7 @@ class CrearFactura extends Component
         $this->proyectos = Proyecto::with('cliente.persona')->get();
         $this->proveedores = Proveedore::with('persona')->get();
     }
+
     public function actualizarIva()
     {
         $this->iva = Tipo_impuesto::find($this->tipo_impuesto_id)?->tipo_IVA ?? 0;
@@ -80,11 +81,9 @@ class CrearFactura extends Component
         }
     }
 
-
     //Soporta para editar como para guardar nueva factura
     public function guardarFactura()
     {
-
         $this->validate(
             [
                 'numero_fra' => [
