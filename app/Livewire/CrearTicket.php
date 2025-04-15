@@ -33,8 +33,21 @@ class CrearTicket extends Component
         if ($id) {
             $this->modoEditar = true;
             $this->comprobante_id = $id;
-            $this->cargarFactura();
+            $this->cargarComprobante();
         }
+    }
+
+    public function cargarComprobante()
+    {
+        $this->comprobanteActual = Comprobante::findOrFail($this->comprobante_id);
+
+        $this->proveedor_id = $this->comprobanteActual->proveedores_id;
+        $this->num_comprobante = $this->comprobanteActual->numero_comprobante;
+        $this->fecha = $this->comprobanteActual->fecha->format('Y-m-d');
+        $this->categoria_id = $this->comprobanteActual->categorias_id;
+        $this->descripcion = $this->comprobanteActual->descripcion;
+        $this->cantidad = $this->comprobanteActual->cantidad;
+        $this->proyecto_id = $this->comprobanteActual->proyectos_id;
     }
 
     protected function cargaDatosIniciales()
@@ -49,11 +62,7 @@ class CrearTicket extends Component
     {
         $this->validate(
             [
-                'num_comprobante' => [
-                    'required',
-                    'max:20',
-                    Rule::unique('comprobantes', 'numero_comprobante')->ignore($this->comprobante_id),
-                ],
+                'num_comprobante' => 'nullable |max:20',
                 'fecha' => 'required |date',
                 'descripcion' => 'nullable| max:254',
                 'cantidad' => 'required |numeric| between:0,999999.99',
@@ -63,8 +72,6 @@ class CrearTicket extends Component
             ],
             //Mensajes de error 
             [
-                'num_comprobante.required' => 'Número de ticket obligatorio.',
-                'num_comprobante.unique' => 'Número de ticket ya existe.',
                 'fecha.required' => 'Fecha obligatoria.',
                 'cantidad.required' => 'Cantidad es obligatoria.',
                 'cantidad.numeric' => 'Debe ser un número.',
@@ -76,27 +83,25 @@ class CrearTicket extends Component
 
         if ($this->modoEditar) {
             try {
-                $this->facturaActual->update([
+                $this->comprobanteActual->update([
                     'fecha' => $this->fecha,
-                    'numero_fra' => $this->numero_fra,
+                    'numero_comprobante' => $this->num_comprobante,
                     'descripcion' => $this->descripcion,
-                    'base_imp' => $this->base_imp,
-                    'tipo_factura_id' => $this->tipo_factura_id,
+                    'cantidad' => $this->cantidad,
                     'proveedores_id' => $this->proveedor_id,
                     'categorias_id' => $this->categoria_id,
                     'proyectos_id' => $this->proyecto_id,
-                    'tipo_impuesto_id' => $this->tipo_impuesto_id,
                 ]);
                 //Mensaje flash
-                return redirect()->to('/compras')->with('success', 'Factura actualizada');
+                return redirect()->to('/compras')->with('success', 'Ticket actualizado');
                 $this->modoEditar = false;
             } catch (\Exception $e) {
-                return redirect()->to('/compras')->with('error', 'Error al crear la factura' . $e->getMessage());
+                return redirect()->to('/compras')->with('error', 'Error al actualizar el ticket' . $e->getMessage());
                 $this->modoEditar = false;
             }
         } else {
             try {
-                $factura = Comprobante::create([
+                Comprobante::create([
                     'numero_comprobante' => $this->num_comprobante,
                     'fecha' => $this->fecha,
                     'descripcion' => $this->descripcion,

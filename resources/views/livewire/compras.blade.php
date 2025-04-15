@@ -11,10 +11,6 @@
                 class="mr-4 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Ticket +
             </a>
-            <a href=""
-                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Gasto +
-            </a>
         </div>
     </div>
     <!-- MODAL ELIMINAR -->
@@ -30,11 +26,11 @@
             <!-- Contenido del Modal -->
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-xl sm:mx-4 sm:rounded-xl mx-auto z-50 relative">
                 <!-- Título -->
-                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Eliminar Factura</h3>
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Eliminar Compra</h3>
 
                 <!-- Descripción -->
                 <p class="text-sm text-gray-700 dark:text-gray-400 mb-4">
-                    ¿Está seguro de que desea eliminar esta factura?
+                    ¿Está seguro de que desea eliminar esta compra?
                 </p>
 
                 <!-- Botones -->
@@ -50,7 +46,7 @@
                     <!-- Botón Eliminar -->
                     <button
                         type="button"
-                        wire:click="eliminarFactura"
+                        wire:click="eliminarComprobante"
                         class="ml-2 px-4 py-2 text-sm bg-red-600 text-white font-medium rounded hover:bg-red-700 focus:outline-none focus:shadow-outline">
                         Eliminar
                     </button>
@@ -104,7 +100,7 @@
                             <div class="flex items-center space-x-4 text-sm">
                                 <!--BOTON EDITAR -->
                                 <button
-                                    wire:click="editarFactura({{$compra->id}})"
+                                    wire:click="editarComprobante({{$compra->id}},'{{$compra->tipo}}')"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Edit">
                                     <svg
@@ -118,7 +114,7 @@
                                 </button>
                                 <!--BOTON ELIMINAR -->
                                 <button
-                                    wire:click="abrirModalEliminar({{$compra->id}})"
+                                    wire:click="abrirModalEliminar({{$compra->id}},'{{$compra->tipo}}')"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Delete">
                                     <svg

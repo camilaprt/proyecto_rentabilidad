@@ -17,3 +17,4 @@ Route::get('/compras', Compras::class)->name('compras');
 Route::get('/compras/crearfactura/', CrearFactura::class)->name('compras.crearfactura');
 Route::get('/compras/{tipo}/editarfactura/{id}', CrearFactura::class)->name('compras.editarfactura');
 Route::get('/compras/crearTicket/', CrearTicket::class)->name('compras.crearticket');
+Route::get('/compras/{tipo}/editarticket/{id}', CrearTicket::class)->name('compras.editarticket');

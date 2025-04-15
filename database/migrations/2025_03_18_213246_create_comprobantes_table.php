@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('comprobantes', function (Blueprint $table) {
             $table->id();
-            $table->string('numero_comprobante',20);
+            $table->string('numero_comprobante', 20)->nullable();
             $table->date('fecha');
-            $table->decimal('cantidad',total:8,places:2);
-            $table->enum('tipo_comprobante',['ingreso','gasto']);
+            $table->decimal('cantidad', total: 8, places: 2);
+            $table->enum('tipo_comprobante', ['ingreso', 'gasto']);
             $table->tinyInteger('estado')->default(1);
             $table->foreignId('clientes_id')->constrained('clientes');
             $table->foreignId('categorias_id')->constrained('categorias');

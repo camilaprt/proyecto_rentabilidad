@@ -47,7 +47,7 @@ class CrearFactura extends Component
 
         $this->proveedor_id = $this->facturaActual->proveedores_id;
         $this->numero_fra = $this->facturaActual->numero_fra;
-        $this->fecha = $this->facturaActual->fecha;
+        $this->fecha = $this->facturaActual->fecha->format('Y-m-d');;
         $this->categoria_id = $this->facturaActual->categorias_id;
         $this->descripcion = $this->facturaActual->descripcion;
         $this->base_imp = $this->facturaActual->base_imp;

@@ -11,12 +11,19 @@ class Compras extends Component
 {
     public $compras;
     public $modalEliminar = false;
-    public $factura_id;
+    public $factura_id, $ticket_id;
+    public $tipo;
 
-    public function abrirModalEliminar($id)
+    public function abrirModalEliminar($id, $tipo)
     {
         $this->modalEliminar = true;
-        $this->factura_id = $id;
+        $this->tipo = $tipo;
+
+        if ($tipo == 'Compra') {
+            $this->factura_id = $id;
+        } elseif ($tipo == 'Ticket') {
+            $this->ticket_id = $id;
+        }
     }
 
     public function cerrarModalEliminar()
@@ -24,26 +31,42 @@ class Compras extends Component
         $this->modalEliminar = false;
     }
 
-    //el cliente_id lo completa el modalEliminar al abrirse
-    public function eliminarFactura()
+    public function eliminarComprobante()
     {
-        try {
-            $factura = Factura::findOrFail($this->factura_id);
-            $factura->delete();
+        if ($this->tipo == 'Compra') {
+            try {
+                $factura = Factura::findOrFail($this->factura_id);
+                $factura->delete();
 
-            return redirect()->to('/compras')->with('success', 'Factura eliminada');
-        } catch (\Exception $e) {
-            return redirect()->to('/compras')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+                return redirect()->to('/compras')->with('success', 'Factura eliminada');
+            } catch (\Exception $e) {
+                return redirect()->to('/compras')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+            }
+        } elseif ($this->tipo == 'Ticket') {
+            try {
+                $ticket = Comprobante::findOrFail($this->ticket_id);
+                $ticket->delete();
+
+                return redirect()->to('/compras')->with('success', 'Ticket eliminado');
+            } catch (\Exception $e) {
+                return redirect()->to('/compras')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+            }
         }
     }
 
-    //Redirige a componente reutilizable CrearFactura
-    public function editarFactura($id)
+    public function editarComprobante($id, $tipo)
     {
-        return redirect()->route('compras.editarfactura', [
-            'tipo' => 'Compra',
-            'id' => $id,
-        ]);
+        if ($tipo == 'Compra') {
+            return redirect()->route('compras.editarfactura', [
+                'tipo' => $tipo,
+                'id' => $id,
+            ]);
+        } elseif ($tipo == 'Ticket') {
+            return redirect()->route('compras.editarticket', [
+                'tipo' => $tipo,
+                'id' => $id,
+            ]);
+        };
     }
 
     //Junta datos de ambas tablas y los normaliza para la vista
