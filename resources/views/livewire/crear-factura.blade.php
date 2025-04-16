@@ -3,7 +3,7 @@
         <!-- BOTÓN CREAR Y EDITAR -->
         <!-- Encabezado dinámico sin colores ni etiquetas -->
         <div class="flex justify-between items-center">
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700">
                 {{ $modoEditar ? 'Editar' : 'Nueva' }} {{ ucfirst($tipo) }}
             </h2>
             <button type="submit"
@@ -34,11 +34,11 @@
                 <div class="flex gap-6 justify-around items-center">
                     <!-- Proveedor o Cliente Dinámico -->
                     <label class="block mt-4 text-sm w-full">
-                        <span class="text-gray-700 dark:text-gray-400">
+                        <span class="text-gray-700">
                             {{$tipo == 'Venta' ? 'Cliente' : 'Proveedor'}}
                         </span>
                         @if($tipo == 'Compra')<!-- COMPRA-->
-                        <select wire:model="proveedor_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                        <select wire:model="proveedor_id" class="block w-full mt-1 text-s form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple">
                             <option value="">Proveedor</option>
                             @foreach($proveedores as $proveedor)
                             <option value="{{$proveedor->id}}">{{$proveedor->persona->nombre}}</option>
@@ -48,7 +48,7 @@
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror
                         @else <!-- VENTA-->
-                        <select wire:model="cliente_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                        <select wire:model="cliente_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple ">
                             <option value="">Cliente</option>
                             @foreach($clientes as $cliente)
                             <option value="{{$cliente->id}}">{{$cliente->persona->nombre}}</option>
@@ -62,10 +62,10 @@
                     </label>
                     <!-- Número documento -->
                     <label class="block mt-4 text-sm w-full">
-                        <span class="text-gray-700 dark:text-gray-400">
+                        <span class="text-gray-700">
                             Numero documento
                         </span>
-                        <input wire:model="numero_fra" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="FRA552684">
+                        <input wire:model="numero_fra" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input" placeholder="FRA552684">
                         @error('numero_fra')
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror
@@ -73,10 +73,10 @@
 
                     <!-- Fecha emisión -->
                     <label class="block mt-4 text-sm w-full">
-                        <span class="text-gray-700 dark:text-gray-400">
+                        <span class="text-gray-700">
                             Fecha emision
                         </span>
-                        <input wire:model="fecha" type="date" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="14/05/1990">
+                        <input wire:model="fecha" type="date" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input" placeholder="14/05/1990">
                         @error('fecha')
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror
@@ -88,7 +88,7 @@
                         <table class="w-full whitespace-no-wrap">
                             <thead>
                                 <tr
-                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                                     <th class="px-4 py-3">Categoria</th>
                                     <th class="px-4 py-3">Descripcion</th>
                                     <th class="px-4 py-3">Base Imponible</th>
@@ -98,11 +98,11 @@
                             </thead>
 
                             <tbody
-                                class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                <tr class="text-gray-700 dark:text-gray-400">
+                                class="bg-white divide-y ">
+                                <tr class="text-gray-700 ">
                                     <!-- Categoria -->
                                     <td class="text-sm">
-                                        <select wire:model="categoria_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                        <select wire:model="categoria_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple ">
                                             <option value="">Categoria</option>
                                             @foreach($categorias as $categoria)
                                             <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
@@ -114,21 +114,21 @@
                                     </td>
                                     <!-- Descripción -->
                                     <td class="text-sm">
-                                        <input wire:model="descripcion" type="text" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                                        <input wire:model="descripcion" type="text" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
                                         @error('descripcion')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror
                                     </td>
                                     <!-- Base Imponible -->
                                     <td class="text-sm">
-                                        <input wire:model.live.debounce.500ms="base_imp" type="number" class="block w-24 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                                        <input wire:model.live.debounce.500ms="base_imp" type="number" class="block w-24 mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
                                         @error('base_imp')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror
                                     </td>
                                     <!-- Tipo impuesto -->
                                     <td class="text-sm">
-                                        <select wire:model.live="tipo_impuesto_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                        <select wire:model.live="tipo_impuesto_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple ">
                                             <option value="">IVA</option>
                                             @foreach($tipos_impuesto as $tipo)
                                             <option value="{{$tipo->id}}">{{$tipo->tipo_IVA}}%</option>
@@ -140,7 +140,7 @@
                                     </td>
                                     <!-- Proyecto -->
                                     <td class="text-sm">
-                                        <select wire:model="proyecto_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                        <select wire:model="proyecto_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple">
                                             <option value="">Proyecto-Cliente</option>
                                             @foreach($proyectos as $proyecto)
                                             <option value="{{$proyecto->id}}">{{$proyecto->nombre}} - {{$proyecto->cliente->persona->nombre}} </option>
@@ -157,7 +157,7 @@
                                 <tr>
                                     <td colspan="5" class="py-3"></td>
                                 </tr> <!-- Espaciador -->
-                                <tr class="bg-gray-100 dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 font-medium border-t-2 border-purple-500">
+                                <tr class="bg-gray-100 text-sm text-gray-700 font-medium border-t-2 border-purple-500">
                                     <td colspan="2"></td> <!-- Ocupa las primeras dos columnas y deja espacio -->
                                     <td class="px-4 py-3 text-right"></td>
                                     <td class="px-4 py-3 text-right">IVA: {{number_format($base_imp * ($iva/100),2)}} €</td>

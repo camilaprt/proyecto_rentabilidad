@@ -1,7 +1,7 @@
 <div>
     <!-- GRUPO BOTONES INICIO -->
     <div class="flex justify-between items-center">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Compras</h2>
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 ">Compras</h2>
         <div class="flex ">
             <a href="{{ route('compras.crearfactura', ['tipo' => 'Compra']) }}"
                 class="mr-4 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
@@ -24,12 +24,12 @@
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
 
             <!-- Contenido del Modal -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-xl sm:mx-4 sm:rounded-xl mx-auto z-50 relative">
+            <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl sm:mx-4 sm:rounded-xl mx-auto z-50 relative">
                 <!-- Título -->
-                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Eliminar Compra</h3>
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Eliminar Compra</h3>
 
                 <!-- Descripción -->
-                <p class="text-sm text-gray-700 dark:text-gray-400 mb-4">
+                <p class="text-sm text-gray-700  mb-4">
                     ¿Está seguro de que desea eliminar esta compra?
                 </p>
 
@@ -61,7 +61,7 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b  bg-gray-50 ">
                         <th class="px-4 py-3">Fecha</th>
                         <th class="px-4 py-3">Documento</th>
                         <th class="px-4 py-3">Tipo</th>
@@ -73,8 +73,8 @@
                     </tr>
                 </thead>
                 <tbody
-                    class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">@foreach($compras as $compra)
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    class="bg-white divide-y ">@foreach($compras as $compra)
+                    <tr class="text-gray-700 ">
                         <td class="px-4 py-3 text-sm">
                             {{$compra->fecha->format('d-m-Y')}}
                         </td>
@@ -101,7 +101,7 @@
                                 <!--BOTON EDITAR -->
                                 <button
                                     wire:click="editarComprobante({{$compra->id}},'{{$compra->tipo}}')"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Edit">
                                     <svg
                                         class="w-5 h-5"
@@ -115,7 +115,7 @@
                                 <!--BOTON ELIMINAR -->
                                 <button
                                     wire:click="abrirModalEliminar({{$compra->id}},'{{$compra->tipo}}')"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Delete">
                                     <svg
                                         class="w-5 h-5"

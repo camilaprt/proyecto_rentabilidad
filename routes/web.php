@@ -6,6 +6,7 @@ use App\Livewire\Compras;
 use App\Livewire\CrearFactura;
 use App\Livewire\CrearTicket;
 use App\Livewire\Ventas;
+use App\Livewire\Proyectos;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,3 +23,4 @@ Route::get('/compras/{tipo}/editarticket/{id}', CrearTicket::class)->name('compr
 Route::get('/ventas', Ventas::class)->name('ventas');
 Route::get('/ventas/crearfactura/{tipo}', CrearFactura::class)->name('ventas.crearfactura');
 Route::get('/ventas/{tipo}/editarfactura/{id}', CrearFactura::class)->name('ventas.editarfactura');
+Route::get('/proyectos', Proyectos::class)->name('proyectos');
