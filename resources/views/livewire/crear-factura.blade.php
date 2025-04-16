@@ -1,19 +1,20 @@
 <div>
     <form wire:submit.prevent="guardarFactura">
         <!-- BOTÓN CREAR Y EDITAR -->
+        <!-- Encabezado dinámico sin colores ni etiquetas -->
         <div class="flex justify-between items-center">
-            @if($modoEditar)
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Editar Compra</h2>
-            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Actualizar
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                {{ $modoEditar ? 'Editar' : 'Nueva' }} {{ ucfirst($tipo) }}
+            </h2>
+            <button type="submit"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 
+        bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 
+        focus:outline-none focus:shadow-outline-purple">
+                {{ $modoEditar ? 'Actualizar' : 'Guardar' }}
             </button>
-            @else
-            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">Nueva Compra</h2>
-            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                Guardar
-            </button>
-            @endif
         </div>
+
+
         <div class="flex gap-4 items-stretch">
             <!-- Área izquierda (subir documento) -->
             <div class="w-2/5">
@@ -31,11 +32,12 @@
             <div class="w-3/5 bg-white rounded-lg px-6 py-4">
                 <!-- Inicio Inputs -->
                 <div class="flex gap-6 justify-around items-center">
-                    <!-- Proveedor -->
+                    <!-- Proveedor o Cliente Dinámico -->
                     <label class="block mt-4 text-sm w-full">
                         <span class="text-gray-700 dark:text-gray-400">
-                            Proveedor
+                            {{$tipo == 'Venta' ? 'Cliente' : 'Proveedor'}}
                         </span>
+                        @if($tipo == 'Compra')<!-- COMPRA-->
                         <select wire:model="proveedor_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
                             <option value="">Proveedor</option>
                             @foreach($proveedores as $proveedor)
@@ -45,6 +47,18 @@
                         @error('proveedor_id')
                         <span class="text-red-600 text-xs">{{ $message }}</span>
                         @enderror
+                        @else <!-- VENTA-->
+                        <select wire:model="cliente_id" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <option value="">Cliente</option>
+                            @foreach($clientes as $cliente)
+                            <option value="{{$cliente->id}}">{{$cliente->persona->nombre}}</option>
+                            @endforeach
+                        </select>
+                        @error('cliente_id')
+                        <span class="text-red-600 text-xs">{{ $message }}</span>
+                        @enderror
+                        @endif
+
                     </label>
                     <!-- Número documento -->
                     <label class="block mt-4 text-sm w-full">
