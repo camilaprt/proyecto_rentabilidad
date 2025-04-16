@@ -10,6 +10,32 @@ class Ventas extends Component
 {
     public $ventas;
     public $modalEliminar = false;
+    public $factura_id;
+
+    public function abrirModalEliminar($id)
+    {
+        $this->modalEliminar = true;
+        $this->factura_id = $id;
+    }
+
+    public function cerrarModalEliminar()
+    {
+        $this->modalEliminar = false;
+    }
+
+    public function eliminarFactura()
+    {
+        try {
+            $factura = Factura::findOrFail($this->factura_id);
+            $factura->delete();
+
+            $this->cerrarModalEliminar();
+            return redirect()->to('/ventas')->with('success', 'Factura eliminada');
+        } catch (\Exception $e) {
+            $this->cerrarModalEliminar();
+            return redirect()->to('/ventas')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
+    }
 
     public function editarVenta($id, $tipo)
     {
@@ -19,7 +45,6 @@ class Ventas extends Component
 
         ]);
     }
-
 
     public function render()
     {

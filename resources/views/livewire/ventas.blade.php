@@ -42,7 +42,7 @@
                     <!-- Botón Eliminar -->
                     <button
                         type="button"
-                        wire:click="eliminarComprobante"
+                        wire:click="eliminarFactura"
                         class="ml-2 px-4 py-2 text-sm bg-red-600 text-white font-medium rounded hover:bg-red-700 focus:outline-none focus:shadow-outline">
                         Eliminar
                     </button>
@@ -106,7 +106,7 @@
                                 </button>
                                 <!--BOTON ELIMINAR -->
                                 <button
-                                    wire:click=""
+                                    wire:click="abrirModalEliminar({{$venta->id}})"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Delete">
                                     <svg
