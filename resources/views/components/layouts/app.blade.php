@@ -11,23 +11,9 @@
     rel="stylesheet" />
   <!-- Local Tailwind -->
   <link rel="stylesheet" href="{{asset('css/tailwind.output.css')}}" />
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="{{asset('css/custom.css')}}" />
 
-  <style>
-    .bar-container {
-      width: 300px;
-      height: 20px;
-      background-color: #ccc;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      width: 70%;
-      height: 100%;
-      background-color: #38a169;
-      /* Verde */
-    }
-  </style>
 
   @livewireStyles
 </head>
@@ -122,7 +108,6 @@
   @livewireScripts
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script src="{{asset('js/charts-bars.js')}}"></script>
 
 </body>
 
