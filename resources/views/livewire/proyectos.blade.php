@@ -117,11 +117,13 @@
                             <p class="text-xs text-gray-500">{{ $item->cliente }}</p>
                         </td>
                         <td class="px-4 py-4">
+
+                            <!--Uso de alpine JS para manejar la clase dinamica de style en class=bar-fill -->
                             <!-- Ingresos -->
-                            <div class="flex items-center justify-center">
+                            <div class="flex items-center justify-center" x-data="{ porc: {{$item->ingresos_porc}} }">
                                 <p class="text-xs text-gray-500 mr-2">Entradas</p>
                                 <div class="bar-container" style="width: 150px;">
-                                    <div class="bar-fill-income" style="width: {{ $item->ingresos_porc }}%"></div><!--esto no da error -->
+                                    <div class="bar-fill-income" :style=" 'width: ' +porc + '%' "></div><!--esto no da error -->
                                 </div>
                                 <span class="text-sm text-gray-700 whitespace-nowrap ml-2 text-nowrap">
                                     {{ number_format($item->ingresos, 2) }} €
@@ -129,10 +131,10 @@
                             </div>
 
                             <!-- Egresos -->
-                            <div class="flex items-center justify-center">
+                            <div class="flex items-center justify-center" x-data="{ porc: {{$item->egresos_porc}} }">
                                 <p class="text-xs text-gray-500 mr-2">Salidas</p>
                                 <div class="bar-container" style="width: 150px;">
-                                    <div class="bar-fill-expense" style="width: {{ $item->egresos_porc }}%"></div><!--esto no da error -->
+                                    <div class="bar-fill-expense" :style=" 'width: ' +porc + '%' "></div><!--esto no da error -->
                                 </div>
                                 <span class="text-sm text-gray-700 whitespace-nowrap ml-2 text-nowrap">
                                     {{ number_format($item->egresos, 2) }} €
