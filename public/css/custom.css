@@ -44,7 +44,7 @@
 
 .profit-box h2 {
     font-size: 1.5rem;
-    color: #dc2626;
+    color: #2e2c2c;
     margin: 0;
 }
 
@@ -88,14 +88,14 @@
 .bar-fill-income {
     height: 100%;
     background-color: #16a34a;
-    width: 60%; /* Ingresos: 60% */
+    /*width: 60%;  Ingresos: 60% */
     border-radius: 9999px;
 }
 
 .bar-fill-expense {
     height: 100%;
     background-color: #b91c1c;
-    width: 100%; /* Egresos: 100% */
+    /*width: 100%;  Egresos: 100% */
     border-radius: 9999px;
 }
 
@@ -148,12 +148,12 @@
 }
 
 .lista {
-    padding: 1.5rem;
+    padding: 1rem;
     flex: 1;
 }
 
 .lista h3 {
-    margin-bottom: 1rem;
+    margin: 0.6rem auto;
     font-size: 1rem;
     font-weight: bold;
 }
