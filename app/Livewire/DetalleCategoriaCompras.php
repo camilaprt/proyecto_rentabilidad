@@ -10,6 +10,8 @@ class DetalleCategoriaCompras extends Component
     public $categoria;
     public $compras;
     public $nombre_proyecto;
+    public $factura_id;
+    public $modalEliminar = false;
 
     public function mount($id, $categoria)
     {
@@ -43,6 +45,36 @@ class DetalleCategoriaCompras extends Component
         });
     }
 
+    public function abrirModalEliminar($id)
+    {
+        $this->modalEliminar = true;
+        $this->factura_id = $id;
+    }
+
+    public function cerrarModalEliminar()
+    {
+        $this->modalEliminar = false;
+    }
+
+    public function eliminarComprobante()
+    {
+        try {
+            $factura = Factura::findOrFail($this->factura_id);
+            $factura->delete();
+
+            return redirect()->to('/compras')->with('success', 'Factura eliminada');
+        } catch (\Exception $e) {
+            return redirect()->to('/compras')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
+    }
+
+    public function editarComprobante($id)
+    {
+        return redirect()->route('compras.editarfactura', [
+            'tipo' => 'Compra',
+            'id' => $id,
+        ]);
+    }
 
 
     public function render()
