@@ -68,7 +68,7 @@
                 <h3>Facturas de compra</h3>
                 @foreach($this->listaComprasPorCategoria as $compra => $total)
                 <div class="lista-item">
-                    <span>{{$compra}}</span>
+                    <a href="{{ route('proyectos.detalle.categoriaCompras', ['id' => $proyecto->id,'categoria' => $compra]) }}">{{$compra}}</a>
                     <span>{{number_format($total,2)}} €</span>
                 </div>
                 @endforeach
