@@ -76,7 +76,6 @@ class DetalleCategoriaCompras extends Component
         ]);
     }
 
-
     public function render()
     {
         return view('livewire.detalle-categoria-compras');
