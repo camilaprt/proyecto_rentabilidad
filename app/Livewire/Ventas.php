@@ -23,7 +23,7 @@ class Ventas extends Component
         $this->modalEliminar = false;
     }
 
-    public function eliminarFactura()
+    public function eliminarComprobante()
     {
         try {
             $factura = Factura::findOrFail($this->factura_id);

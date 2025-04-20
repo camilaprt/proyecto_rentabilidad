@@ -73,9 +73,9 @@
                 </div>
                 @endforeach
                 <h3>Tickets</h3>
-                @foreach($this->listaTicketsPorCategoria as $ticket => $total)
+                @foreach($this->listaTicketsPorCategoria as $compra => $total)
                 <div class="lista-item">
-                    <a href="{{ route('proyectos.detalle.tickets', ['id' => $proyecto->id,'categoria' => $compra]) }}">{{$ticket}}</a>
+                    <a href="{{ route('proyectos.detalle.tickets', ['id' => $proyecto->id,'categoria' => $compra]) }}">{{$compra}}</a>
                     <span>{{number_format($total,2)}} €</span>
                 </div>
                 @endforeach

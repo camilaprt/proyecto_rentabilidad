@@ -17,7 +17,7 @@ class DetalleCategoriaTickets extends Component
     public function mount($id, $categoria)
     {
         $this->categoria = $categoria;
-        //traer las facturas
+        //traer los comprobantes
         $comprobantes = Comprobante::with(['proyecto', 'proveedore', 'tipo_comprobante'])
             ->where('proyectos_id', $id)
             ->whereHas('categoria', fn($q) =>
@@ -29,7 +29,7 @@ class DetalleCategoriaTickets extends Component
         //guardar nombre proyecto
         $this->nombre_proyecto = $comprobantes->first()->proyecto->nombre;
 
-        //normalizarlas para usar en el componente tabla-compras
+        //normalizar para usarlos en el componente tabla-compras
         $this->compras = $comprobantes->map(function ($c) {
             return (object)[
                 'id' => $c->id,

@@ -162,6 +162,11 @@
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
+    font-weight: 400;
     border-bottom: 1px solid #eee;
     padding: 4px 0;
+}
+.lista-item a:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
