@@ -55,10 +55,10 @@
             <!-- Detalle ingresos -->
             <div class="lista">
                 <h3>Facturas de venta</h3>
-                @foreach($this->listaIngresos as $ingreso)
+                @foreach($this->listaIngresos as $ventas)
                 <div class="lista-item">
-                    <span>{{$ingreso->numero_fra}}</span>
-                    <span>{{$ingreso->base_imp}} €</span>
+                    <a href="{{ route('proyectos.detalle.ventas', ['id' => $proyecto->id,'categoria' => $ventas->tipo_factura->tipo]) }}">{{$ventas->numero_fra}}</a>
+                    <span>{{number_format($ventas->base_imp,2)}} €</span>
                 </div>
                 @endforeach
             </div>
