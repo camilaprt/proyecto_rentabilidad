@@ -52,7 +52,7 @@ class DetalleCategoriaVentas extends Component
 
     public function editarVenta($id, $tipo)
     {
-        return redirect()->route('ventas.editarfactura', [
+        return redirect()->route('editarfactura', [
             'tipo' => $tipo,
             'id' => $id,
         ]);

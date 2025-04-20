@@ -57,7 +57,7 @@ class Compras extends Component
     public function editarComprobante($id, $tipo)
     {
         if ($tipo == 'Compra') {
-            return redirect()->route('compras.editarfactura', [
+            return redirect()->route('editarfactura', [
                 'tipo' => $tipo,
                 'id' => $id,
             ]);

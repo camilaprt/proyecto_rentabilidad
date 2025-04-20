@@ -70,7 +70,7 @@ class DetalleCategoriaCompras extends Component
 
     public function editarComprobante($id)
     {
-        return redirect()->route('compras.editarfactura', [
+        return redirect()->route('editarfactura', [
             'tipo' => 'Compra',
             'id' => $id,
         ]);
