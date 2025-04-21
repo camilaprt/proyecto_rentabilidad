@@ -17,6 +17,7 @@ class CrearTicket extends Component
     public $cantidad;
     public $descripcion;
     public $proveedor_id, $categoria_id, $proyecto_id, $tipo_comprobante_id;
+    public $proyecto_seleccionado;
     public $categorias = [];
     public $proyectos = [];
     public $proveedores = [];
@@ -25,9 +26,10 @@ class CrearTicket extends Component
     public $comprobante_id;
     public $comprobanteActual;
 
-    public function mount($id = null)
+    public function mount($id = null, $proyecto_id = null)
     {
         $this->tipo_comprobante_id = Tipo_comprobante::where('tipo', 'Ticket')->value('id');
+        $this->proyecto_id = $proyecto_id; //viene desde componente ProyectoDetalle
         $this->cargaDatosIniciales();
 
         if ($id) {
@@ -53,8 +55,12 @@ class CrearTicket extends Component
     protected function cargaDatosIniciales()
     {
         $this->categorias = Categoria::all();
-        $this->proyectos = Proyecto::with('cliente.persona')->get();
         $this->proveedores = Proveedore::with('persona')->get();
+        if ($this->proyecto_id) {
+            $this->proyecto_seleccionado = Proyecto::with('cliente.persona')->find($this->proyecto_id);
+        } else {
+            $this->proyectos = Proyecto::with('cliente.persona')->get();
+        }
     }
 
     //Soporta para editar como para guardar nuevo ticket
@@ -113,9 +119,21 @@ class CrearTicket extends Component
 
                 ]);
 
-                //Mensaje flash
+                //Redireccion si viene desde un proyecto
+                if ($this->proyecto_seleccionado) {
+                    return redirect()->route('proyectos.detalle', $this->proyecto_id)
+                        ->with('success', 'Ticket registrado ');
+                }
+
+                //Redireccion si NO viene desde proyecto
                 return redirect()->to('/compras')->with('success', 'Ticket creado');
             } catch (\Exception $e) {
+
+                if ($this->proyecto_seleccionado) {
+                    return redirect()->route('proyectos.detalle', $this->proyecto_id)
+                        ->with('error', 'Error al registrar la factura: ' . $e->getMessage());
+                }
+
                 return redirect()->to('/compras')->with('error', 'Error al crear el ticket' . $e->getMessage());
             }
         }

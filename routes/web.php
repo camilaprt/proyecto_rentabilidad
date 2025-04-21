@@ -24,8 +24,8 @@ Route::get('/proveedores', GestionProveedores::class)->name('proveedores');
 Route::get('/compras', Compras::class)->name('compras');
 /*Route::get('/compras/crearfactura/{tipo}/{proyecto?}', CrearFactura::class)->name('compras.crearfactura'); //*/
 /*Route::get('/compras/{tipo}/editarfactura/{id}', CrearFactura::class)->name('compras.editarfactura');*/
-Route::get('/compras/crearTicket/', CrearTicket::class)->name('compras.crearticket'); //
-Route::get('/compras/{tipo}/editarticket/{id}', CrearTicket::class)->name('compras.editarticket');
+Route::get('/compras/crearTicket/{proyecto_id?}', CrearTicket::class)->name('compras.crearticket'); //
+Route::get('/{tipo}/editarticket/{id}', CrearTicket::class)->name('compras.editarticket');
 Route::get('/ventas', Ventas::class)->name('ventas');
 Route::get('/{tipo}/crearfactura/{proyecto_id?}', CrearFactura::class)->name('crearfactura'); //
 Route::get('/{tipo}/editarfactura/{id}', CrearFactura::class)->name('editarfactura');

@@ -35,7 +35,7 @@ class DetalleCategoriaTickets extends Component
                 'id' => $c->id,
                 'fecha' => $c->fecha,
                 'numero' => $c->numero_comprobante,
-                'tipo' => $c->tipo_comprobante_id->tipo ?? '',
+                'tipo' => $c->tipo_comprobante->tipo ?? '',
                 'proveedor' => $c->proveedore->persona->nombre ?? '',
                 'descripcion' => $c->descripcion ?? '',
                 'subtotal' => $c->cantidad,
