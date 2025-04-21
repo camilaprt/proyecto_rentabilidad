@@ -16,7 +16,7 @@ class CrearFactura extends Component
 {
     public $tipo = ""; //define tipo de factura: compra o venta 
     public $tipo_factura_id, $proyecto_id, $categoria_id, $tipo_impuesto_id, $proveedor_id, $cliente_id;
-    public $numero_fra, $fecha, $descripcion, $base_imp;
+    public $numero_fra, $fecha, $descripcion, $base_imp, $proyecto_seleccionado;
     public $iva = 0;
     public $tipos_impuesto = [];
     public $categorias = [];
@@ -28,9 +28,10 @@ class CrearFactura extends Component
     public $factura_id;
     public $facturaActual;
 
-    public function mount($tipo, $id = null)
+    public function mount($tipo, $id = null, $proyecto_id = null)
     {
         $this->tipo = $tipo; //compra o venta
+        $this->proyecto_id = $proyecto_id; //viene desde componente ProyectoDetalle
         $this->cargaDatosIniciales();
 
         if ($id) {
@@ -65,7 +66,12 @@ class CrearFactura extends Component
         $this->tipo_factura_id = Tipo_factura::where('tipo', $this->tipo)->value('id');
         $this->tipos_impuesto = Tipo_impuesto::all();
         $this->categorias = Categoria::all();
-        $this->proyectos = Proyecto::with('cliente.persona')->get();
+        if ($this->proyecto_id) {
+            $this->proyecto_seleccionado = Proyecto::with('cliente.persona')->find($this->proyecto_id);
+        } else {
+            $this->proyectos = Proyecto::with('cliente.persona')->get();
+        }
+
 
         if ($this->tipo === 'Compra') {
             $this->proveedores = Proveedore::with('persona')->get();
@@ -174,13 +180,25 @@ class CrearFactura extends Component
                     'clientes_id' => $this->tipo === 'Venta' ? $this->cliente_id : null,
                 ]);
 
-                //Mensaje flash
+                //Redireccion si viene desde un proyecto
+                if ($this->proyecto_seleccionado) {
+                    return redirect()->route('proyectos.detalle', $this->proyecto_id)
+                        ->with('success', 'Factura de ' . $this->tipo . ' registrada ');
+                }
+
+                //Redireccion segun tipo si NO viene desde proyecto
                 if ($this->tipo == 'Compra') {
-                    return redirect()->to('/compras')->with('success', 'Factura de Compra Registrada');
+                    return redirect()->to('/compras')->with('success', 'Factura de compra registrada');
                 } elseif ($this->tipo == 'Venta') {
-                    return redirect()->to('/ventas')->with('success', 'Factura de Venta Registrada');
+                    return redirect()->to('/ventas')->with('success', 'Factura de venta registrada');
                 }
             } catch (\Exception $e) {
+
+                if ($this->proyecto_seleccionado) {
+                    return redirect()->route('proyectos.detalle', $this->proyecto_id)
+                        ->with('error', 'Error al registrar la factura: ' . $e->getMessage());
+                }
+
                 if ($this->tipo == 'Compra') {
                     return redirect()->to('/compras')->with('error', 'Error al registrar la factura' . $e->getMessage());
                 } elseif ($this->tipo == 'Venta') {

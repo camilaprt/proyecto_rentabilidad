@@ -140,6 +140,12 @@
                                     </td>
                                     <!-- Proyecto -->
                                     <td class="text-sm">
+                                        @if($proyecto_seleccionado)
+                                        <label class="text-xs text-gray-500 mb-1 block">Proyecto vinculado</label>
+                                        <div class="py-2 px-3 bg-gray-100 rounded text-sm text-gray-800">
+                                            {{ $proyecto_seleccionado->nombre }} – {{ $proyecto_seleccionado->cliente->persona->nombre }}
+                                        </div>
+                                        @else
                                         <select wire:model="proyecto_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple">
                                             <option value="">Proyecto-Cliente</option>
                                             @foreach($proyectos as $proyecto)
@@ -149,6 +155,7 @@
                                         @error('proyecto_id')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror
+                                        @endif
                                     </td>
                                 </tr>
                             </tbody>

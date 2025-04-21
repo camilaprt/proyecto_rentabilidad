@@ -10,8 +10,6 @@ class ProyectoDetalle extends Component
 {
     public $proyecto;
 
-
-
     public function mount($id)
     {
         $this->proyecto = Proyecto::with(['cliente.persona', 'facturas.tipo_factura', 'comprobantes'])

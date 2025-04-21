@@ -1,7 +1,29 @@
 <div>
-    <h4 class="mb-4 text-lg font-semibold text-gray-600">
-        {{$proyecto->nombre}}
-    </h4>
+    <!-- Uso de Alpine JS para manejar dropdown -->
+    <div class="flex justify-between items-center">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700">{{$proyecto->nombre}}</h2>
+        <div x-data="{ open: false}" class="flex">
+            <button
+                @click="open = !open"
+                class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Agregar a proyecto <span class="ml-2">▼</span>
+            </button>
+            <div
+                x-show="open"
+                @click.away="open = false"
+                x-transition
+                class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg z-50">
+                <a href="{{ route('crearfactura', ['tipo' => 'Compra', 'proyecto_id' => $proyecto->id]) }}"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    ➕ Factura de Compra
+                </a>
+
+            </div>
+
+            </button>
+
+        </div>
+    </div>
     <div class="contenedor-principal">
         <!-- Bloque inicial -->
         <div class="resumen-grid-barra">
