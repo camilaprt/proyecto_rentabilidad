@@ -1,5 +1,6 @@
 <div>
     <form wire:submit.prevent="guardarTicket">
+
         <!-- BOTÓN CREAR Y EDITAR -->
         <div class="flex justify-between items-center">
             @if($modoEditar)
@@ -9,7 +10,7 @@
             </button>
             @else
             <h2 class="my-6 text-2xl font-semibold text-gray-700">Nuevo Ticket</h2>
-            <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+            <button type="submit" wire:loading.attr="disabled" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                 Guardar
             </button>
             @endif
@@ -76,6 +77,7 @@
                             <thead>
                                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
                                     <th class="px-4 py-3">Categoria</th>
+                                    <th class="px-4 py-3"></th>
                                     <th class="px-4 py-3">Descripcion</th>
                                     <th class="px-4 py-3">Cantidad</th>
                                     <th class="px-4 py-3">Proyecto-Cliente</th>
@@ -95,6 +97,9 @@
                                         @error('categoria_id')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror
+                                    </td>
+                                    <td>
+                                        <livewire:boton-agregar-categoria />
                                     </td>
                                     <!-- Descripción -->
                                     <td class="text-sm">
@@ -138,7 +143,7 @@
                                     <td colspan="4" class="py-3"></td>
                                 </tr> <!-- Espaciador -->
                                 <tr class="bg-gray-100 text-sm text-gray-700 font-medium border-t-2 border-purple-500">
-                                    <td colspan="3"></td>
+                                    <td colspan="4"></td>
                                     <td class="px-4 py-3 text-right text-purple-600 font-bold">Total: {{number_format($cantidad,2)}} €</td>
                                 </tr>
                             </tfoot>

@@ -48,19 +48,22 @@ class Proyectos extends Component
             'fecha_final' => 'nullable',
             'cliente_id' => 'required'
         ]);
+        try {
+            $proyecto = Proyecto::create([
+                'nombre' => $this->nombre,
+                'descripcion' => $this->descripcion,
+                'fecha_inicio' => $this->fecha_inicio,
+                'fecha_final' => $this->fecha_final,
+                'clientes_id' => $this->cliente_id,
 
-        $proyecto = Proyecto::create([
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_final' => $this->fecha_final,
-            'clientes_id' => $this->cliente_id,
+            ]);
 
-        ]);
-
-        $this->cerrarModalCrear();
-        //Mensaje flash
-        return redirect()->to('/proyectos')->with('success', 'Proyecto creado');
+            $this->cerrarModalCrear();
+            //Mensaje flash
+            return redirect()->to('/proyectos')->with('success', 'Proyecto creado');
+        } catch (\Exception $e) {
+            return redirect()->to('/proyectos')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
     }
 
     #[Computed] //esto permite acceder a la funcion como una propiedad "resumenProyectos"
@@ -82,8 +85,8 @@ class Proyectos extends Component
                     'fecha_final' => optional($proyecto->fecha_final)->format('d-m-Y'), //optional porque fecha puede ser null
                     'ingresos' => $ingresos,
                     'egresos' => $egresos,
-                    'ingresos_porc' => ($ingresos / $max) * 100,
-                    'egresos_porc' => ($egresos / $max) * 100,
+                    'ingresos_porc' => ($ingresos / $max) * 100, //% para la barra visual, que tenga mismo tamaño que egresos
+                    'egresos_porc' => ($egresos / $max) * 100, //% para la barra visual, que tenga mismo tamaño que ingresos
                     'beneficio' => $ingresos - $egresos,
                     'porcentaje' => (($ingresos - $egresos) / $max) * 100,
 

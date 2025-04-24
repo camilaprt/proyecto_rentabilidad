@@ -48,7 +48,7 @@ class Ventas extends Component
 
     public function render()
     {
-        $this->ventas = Factura::with(['tipo_factura', 'cliente'])
+        $this->ventas = Factura::with(['tipo_factura', 'cliente', 'proyecto'])
             ->whereHas('tipo_factura', function ($query) {
                 $query->where('tipo', 'Venta');
             })

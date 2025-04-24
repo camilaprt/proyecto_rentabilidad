@@ -5,10 +5,13 @@ namespace App\Livewire;
 use App\Models\Comprobante;
 use Livewire\Component;
 use App\Models\Factura;
+use Livewire\WithPagination;
 use PhpParser\Node\Expr\Cast\Object_;
 
 class Compras extends Component
 {
+    use WithPagination;
+
     public $compras;
     public $modalEliminar = false;
     public $factura_id, $ticket_id;
@@ -73,14 +76,14 @@ class Compras extends Component
     public function cargarCompras()
     {
         // 1. Facturas con tipo = compra
-        $facturas = Factura::with(['tipo_factura', 'proveedore'])
+        $facturas = Factura::with(['tipo_factura', 'proveedore', 'proyecto'])
             ->whereHas('tipo_factura', function ($query) {
                 $query->where('tipo', 'Compra');
             })
             ->get();
 
         // 2. Comprobantes (todos son compras por defecto)
-        $comprobantes = Comprobante::with('tipo_comprobante', 'proveedore.persona')->get();
+        $comprobantes = Comprobante::with('tipo_comprobante', 'proveedore.persona', 'proyecto')->get();
 
         // 3. Crear coleccion
         $this->compras = collect();
@@ -94,6 +97,7 @@ class Compras extends Component
                 'tipo' => $f->tipo_factura->tipo, // 'compra'
                 'proveedor' => $f->proveedore->persona->nombre ?? '',
                 'descripcion' => $f->descripcion,
+                'proyecto' => $f->proyecto->nombre,
                 'subtotal' => $f->base_imp,
                 'total' => $f->total,
                 'origen' => 'factura',
@@ -107,6 +111,7 @@ class Compras extends Component
                 'tipo' => $c->tipo_comprobante->tipo,
                 'proveedor' => $c->proveedore->persona->nombre ?? '',
                 'descripcion' => $c->descripcion,
+                'proyecto' => $c->proyecto->nombre,
                 'subtotal' => $c->cantidad,
                 'total' => $c->cantidad,
                 'origen' => 'comprobante',

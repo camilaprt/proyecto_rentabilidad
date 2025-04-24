@@ -8,6 +8,7 @@ use App\Models\Categoria;
 use App\Models\Comprobante;
 use App\Models\Proyecto;
 use App\Models\Proveedore;
+use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 
 class CrearTicket extends Component
@@ -26,6 +27,7 @@ class CrearTicket extends Component
     public $comprobante_id;
     public $comprobanteActual;
 
+
     public function mount($id = null, $proyecto_id = null)
     {
         $this->tipo_comprobante_id = Tipo_comprobante::where('tipo', 'Ticket')->value('id');
@@ -37,6 +39,12 @@ class CrearTicket extends Component
             $this->comprobante_id = $id;
             $this->cargarComprobante();
         }
+    }
+    #[On('categoriaAgregada')] //escucha el evento categoriaAgregada de componente categoria-selector
+    public function actualizarCategorias($id)
+    {
+        $this->categoria_id = $id;
+        $this->categorias = Categoria::all();
     }
 
     public function cargarComprobante()

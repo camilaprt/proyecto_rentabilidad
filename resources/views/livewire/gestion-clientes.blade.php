@@ -69,7 +69,13 @@
               Cancelar
             </button>
 
-            <button type="submit" class="ml-2 px-4 py-2 text-sm bg-blue-500 text-white font-medium rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
+            <!-- Spinner visible durante cualquier carga -->
+            <div
+              wire:loading
+              class="border-gray-300 h-5 w-5 animate-spin rounded-full border-2 border-t-blue-600 mr-2"></div>
+
+            <button type="submit"
+              wire:loading.attr="disabled" class="ml-2 px-4 py-2 text-sm bg-blue-500 text-white font-medium rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">
               @if($modalCrear) Guardar @else Actualizar @endif
             </button>
           </div>

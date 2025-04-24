@@ -14,10 +14,8 @@ use App\Livewire\DetalleCategoriaVentas;
 
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+//cambiar cuando app este lista
+Route::get('/', Proyectos::class)->name('home');
 
 Route::get('/clientes', GestionClientes::class)->name('clientes');
 Route::get('/proveedores', GestionProveedores::class)->name('proveedores');

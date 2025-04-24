@@ -10,6 +10,7 @@
                         <th class="px-4 py-3">Descripción</th>
                         <th class="px-4 py-3">Subtotal</th>
                         <th class="px-4 py-3">Total</th>
+                        <th class="px-4 py-3">Proyecto</th>
                         <th class="px-4 py-3">Acciones</th>
                     </tr>
                 </thead>
@@ -33,6 +34,9 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{ $venta->total }} €
+                        </td>
+                        <td class="px-4 py-3 text-sm">
+                            {{ $venta->proyecto->nombre }}
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex items-center space-x-4 text-sm">

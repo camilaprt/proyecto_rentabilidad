@@ -4,17 +4,74 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Proyecto;
+use App\Models\Cliente;
 use Livewire\Attributes\Computed;
 
 class ProyectoDetalle extends Component
 {
     public $proyecto;
+    public $proyecto_id;
+    public $nombre;
+    public $descripcion;
+    public $fecha_inicio, $fecha_final;
+    public $cliente_id;
+    public $clientes;
+    public $modalEditar = false;
 
     public function mount($id)
     {
         $this->proyecto = Proyecto::with(['cliente.persona', 'facturas.tipo_factura', 'comprobantes'])
             ->findOrFail($id);
+        $this->proyecto_id = $id; //se puede sacar creo
     }
+
+    public function abrirModalEditar()
+    {
+        $this->nombre = $this->proyecto->nombre;
+        $this->descripcion = $this->proyecto->descripcion;
+        $this->fecha_inicio = optional($this->proyecto->fecha_inicio)->format('Y-m-d');
+        $this->fecha_final = optional($this->proyecto->fecha_final)->format('Y-m-d');
+        $this->cliente_id = $this->proyecto->cliente->id;
+        $this->clientes = Cliente::with('persona')->get();
+        $this->modalEditar = true;
+    }
+
+    public function cerrarModalEditar()
+    {
+        $this->modalEditar = false;
+        $this->resetErrorBag(); //limpia mensajes de error
+        $this->resetValidation(); // limpia errores de validación personalizados
+        $this->reset(['nombre', 'descripcion', 'fecha_inicio', 'fecha_final']); //limpia los campos
+    }
+
+    public function actualizarProyecto()
+    {
+
+        $this->validate([
+            'nombre' => 'required | max:45 | min:3',
+            'descripcion' => 'nullable|max:255',
+            'fecha_inicio' => 'nullable',
+            'fecha_final' => 'nullable',
+            'cliente_id' => 'required'
+        ]);
+        try {
+            $this->proyecto->nombre = $this->nombre;
+            $this->proyecto->descripcion = $this->descripcion;
+            $this->proyecto->fecha_inicio = $this->fecha_inicio;
+            $this->proyecto->fecha_final = $this->fecha_final;
+            $this->proyecto->clientes_id = $this->cliente_id;
+            $this->proyecto->save();
+
+            $this->cerrarModalEditar();
+            $this->dispatch('$refresh'); //recarga todo el componente
+            //Mensaje flash
+            return redirect()->to('/proyectos')->with('success', 'Proyecto actualizado');
+        } catch (\Exception $e) {
+            return redirect()->to('/proyectos')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
+    }
+
+
     #[Computed]
     public function resumenProyecto()
     {

@@ -1,7 +1,9 @@
 <div>
-    <!-- Uso de Alpine JS para manejar dropdown -->
+
     <div class="flex justify-between items-center">
         <h2 class="my-6 text-2xl font-semibold text-gray-700">{{$proyecto->nombre}}</h2>
+        <button wire:click="abrirModalEditar">Editar</button>
+        <!-- Uso de Alpine JS para manejar dropdown -->
         <div x-data="{ open: false}" class="relative">
             <button
                 @click="open = !open"
@@ -18,6 +20,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                 </svg>
             </button>
+
             <div
                 x-show="open"
                 @click.away="open = false"
@@ -121,6 +124,12 @@
         </div>
     </div>
 
-
+    <!-- MODAL CREAR Y EDITAR -->
+    <x-modal-crear-editar-proyecto
+        :mostrar="$modalEditar"
+        :modo="'editar' "
+        :clientes="$clientes"
+        accionEditar="actualizarProyecto"
+        cerrarEditar="cerrarModalEditar" />
 
 </div>
