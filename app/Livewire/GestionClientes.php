@@ -64,6 +64,10 @@ class GestionClientes extends Component
     //el cliente_id lo completa el modalEliminar al abrirse
     public function eliminarCliente()
     {
+        //comprobar que cliente no esta asociado a un proyecto
+        if (Cliente::findOrFail($this->cliente_id)->proyectos()->exists()) {
+            return redirect()->to('/clientes')->with('exists', 'El cliente no se puede eliminar porque tiene proyecto asociado');
+        }
         try {
             DB::transaction(function () {
                 $cliente = Cliente::findOrFail($this->cliente_id);
