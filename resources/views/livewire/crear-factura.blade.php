@@ -102,7 +102,8 @@
                                 <tr class="text-gray-700 ">
                                     <!-- Categoria -->
                                     <td class="text-sm">
-                                        <select wire:model="categoria_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple ">
+                                        @if($tipo === 'Compra')
+                                        <select wire:model="categoria_id" class="block w-full mt-1 text-sm form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple">
                                             <option value="">Categoria</option>
                                             @foreach($categorias as $categoria)
                                             <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
@@ -111,6 +112,9 @@
                                         @error('categoria_id')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror
+                                        @else
+                                        <span class="block text-center">-</span>
+                                        @endif
                                     </td>
                                     <!-- Descripción -->
                                     <td class="text-sm">

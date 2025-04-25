@@ -57,7 +57,6 @@ class CrearFactura extends Component
         $this->proyecto_id = $this->facturaActual->proyectos_id;
         $this->actualizarIva();
     }
-    //agregar funcion cuando pasemos a venta o compra que cargue array prov y clientes
 
 
     protected function cargaDatosIniciales()
@@ -65,7 +64,6 @@ class CrearFactura extends Component
         //Trae id de compra o venta
         $this->tipo_factura_id = Tipo_factura::where('tipo', $this->tipo)->value('id');
         $this->tipos_impuesto = Tipo_impuesto::all();
-        $this->categorias = Categoria::all();
         if ($this->proyecto_id) {
             $this->proyecto_seleccionado = Proyecto::with('cliente.persona')->find($this->proyecto_id);
         } else {
@@ -75,6 +73,7 @@ class CrearFactura extends Component
 
         if ($this->tipo === 'Compra') {
             $this->proveedores = Proveedore::with('persona')->get();
+            $this->categorias = Categoria::all();
             $this->clientes = []; // vacío por claridad
         } elseif ($this->tipo === 'Venta') {
             $this->clientes = Cliente::with('persona')->get();
@@ -108,14 +107,15 @@ class CrearFactura extends Component
             'descripcion' => 'nullable| max:254',
             'base_imp' => 'required |numeric | between:0,999999.99',
             'tipo_impuesto_id' => 'required',
-            'categoria_id' => 'required',
             'proyecto_id' => 'required',
         ];
 
         if ($this->tipo === 'Compra') {
             $rules['proveedor_id'] = 'required';
+            $rules['categoria_id'] = 'required'; //obligatorio en compras
         } elseif ($this->tipo === 'Venta') {
             $rules['cliente_id'] = 'required';
+            $rules['categoria_id'] = 'nullable';
         }
         //Mensajes de error
         $this->validate($rules, [
