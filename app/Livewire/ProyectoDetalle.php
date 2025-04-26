@@ -22,7 +22,7 @@ class ProyectoDetalle extends Component
     {
         $this->proyecto = Proyecto::with(['cliente.persona', 'facturas.tipo_factura', 'comprobantes'])
             ->findOrFail($id);
-        $this->proyecto_id = $id; //se puede sacar creo
+        $this->proyecto_id = $id;
     }
 
     public function abrirModalEditar()
@@ -42,6 +42,23 @@ class ProyectoDetalle extends Component
         $this->resetErrorBag(); //limpia mensajes de error
         $this->resetValidation(); // limpia errores de validación personalizados
         $this->reset(['nombre', 'descripcion', 'fecha_inicio', 'fecha_final']); //limpia los campos
+    }
+
+    public function eliminarProyecto()
+    {
+        //comprobar que proyecto no tiene documentos asociados
+        $proyecto = Proyecto::withCount(['comprobantes', 'facturas'])->findOrFail($this->proyecto_id);
+        if ($proyecto->comprobantes_count > 0 || $proyecto->facturas_count > 0) {
+            return redirect()->route('proyectos.detalle', ['id' => $this->proyecto_id])->with('exists', 'El proyecto no se puede eliminar porque tiene comprobantes asociados');
+        }
+        try {
+            $this->proyecto->delete();
+
+            //Mensaje flash
+            return redirect()->to('/proyectos')->with('success', 'Proyecto eliminado');
+        } catch (\Exception $e) {
+            return redirect()->to('/proyectos.detalle')->with('error', 'Ocurrió un error: ' . $e->getMessage());
+        }
     }
 
     public function actualizarProyecto()
