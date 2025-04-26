@@ -13,7 +13,7 @@ class BotonAgregarCategoria extends Component
     public $nueva_categoria;
     public $modalCrear = false;
 
-    //metodo de livewire que cambia cuando cambia la propiedad categoria_id
+
     public function abrirModalCrear()
     {
         $this->modalCrear = true;

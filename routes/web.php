@@ -3,6 +3,7 @@
 use App\Livewire\GestionClientes;
 use App\Livewire\GestionProveedores;
 use App\Livewire\Compras;
+use App\Livewire\Categorias;
 use App\Livewire\CrearFactura;
 use App\Livewire\CrearTicket;
 use App\Livewire\Ventas;
@@ -20,6 +21,7 @@ Route::get('/', Proyectos::class)->name('home');
 Route::get('/clientes', GestionClientes::class)->name('clientes');
 Route::get('/proveedores', GestionProveedores::class)->name('proveedores');
 Route::get('/compras', Compras::class)->name('compras');
+Route::get('/categorias', Categorias::class)->name('categorias');
 /*Route::get('/compras/crearfactura/{tipo}/{proyecto?}', CrearFactura::class)->name('compras.crearfactura'); //*/
 /*Route::get('/compras/{tipo}/editarfactura/{id}', CrearFactura::class)->name('compras.editarfactura');*/
 Route::get('/compras/crearTicket/{proyecto_id?}', CrearTicket::class)->name('compras.crearticket'); //
