@@ -68,16 +68,17 @@ class ProyectoDetalle extends Component
             'nombre' => 'required | max:45 | min:3',
             'descripcion' => 'nullable|max:255',
             'fecha_inicio' => 'nullable',
-            'fecha_final' => 'nullable',
+            'fecha_final' => 'nullable|after_or_equal:fecha_inicio',
             'cliente_id' => 'required'
         ]);
         try {
             $this->proyecto->nombre = $this->nombre;
             $this->proyecto->descripcion = $this->descripcion;
-            $this->proyecto->fecha_inicio = $this->fecha_inicio;
-            $this->proyecto->fecha_final = $this->fecha_final;
+            $this->proyecto->fecha_inicio = $this->fecha_inicio ?: null;
+            $this->proyecto->fecha_final = $this->fecha_final ?: null;
             $this->proyecto->clientes_id = $this->cliente_id;
             $this->proyecto->save();
+
 
             $this->cerrarModalEditar();
             $this->dispatch('$refresh'); //recarga todo el componente

@@ -32,7 +32,7 @@
                             <span class="text-gray-700">Fecha Inicio</span>
                             <input type="date" wire:model="fecha_inicio" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input" placeholder="Av.Carlemnay 53">
                         </label>
-                        @error('')
+                        @error('fecha_inicio')
                         <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
                         @enderror
 
@@ -41,7 +41,7 @@
                             <span class="text-gray-700">Fecha Fin</span>
                             <input type="date" wire:model="fecha_final" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input" placeholder="Av.Carlemnay 53">
                         </label>
-                        @error('')
+                        @error('fecha_final')
                         <div class="text-red-700 text-xs mt-1">{{ $message }}</div>
                         @enderror
                     </div>
