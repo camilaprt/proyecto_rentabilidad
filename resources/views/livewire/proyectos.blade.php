@@ -63,10 +63,15 @@
                             </div>
                         </td>
                         <td class="px-4 py-4">
+                            @if($item->porcentaje != null)
                             <span class="text-sm text-gray-700 whitespace-nowrap ml-2
                                 {{$item->porcentaje > 0 ? 'text-green-600' : ($item->porcentaje < 0 ? 'text-red-600' : 'text-gray-600')}}">
                                 {{ number_format($item->porcentaje, 1) }} %
                             </span>
+                            @else
+                            <span class="text-sm text-gray-400 whitespace-nowrap ml-2">–</span>
+
+                            @endif
                         </td>
                         <td class="px-4 py-4 text-sm">{{$item->fecha_inicio}}</td>
                         <td class="px-4 py-4 text-sm">{{$item->fecha_final}}</td>

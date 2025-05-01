@@ -96,13 +96,17 @@ class ProyectoDetalle extends Component
         $ingresos = $this->proyecto->facturas->where('tipo_factura.tipo', 'Venta')->sum('base_imp');
         $egresos = $this->proyecto->facturas->where('tipo_factura.tipo', 'Compra')->sum('base_imp') +
             $this->proyecto->comprobantes->sum('cantidad');
-        $max = max($ingresos, $egresos, 1);
+        $max = max($ingresos, $egresos, 1); //usado para mantener barras visuales simétricas
+
+        $beneficio = $ingresos - $egresos;
+        //evita división por cero
+        $rentabilidad = $ingresos > 0 ? ($beneficio / $ingresos) * 100 : null;
 
         return (object) [
             'ingresos' => $ingresos,
             'egresos' => $egresos,
-            'beneficio' => $ingresos - $egresos,
-            'porcentaje' => (($ingresos - $egresos) / $max) * 100,
+            'beneficio' => $beneficio,
+            'porcentaje' => $rentabilidad,
             'ingresos_porc' => ($ingresos / $max) * 100,
             'egresos_porc' => ($egresos / $max) * 100,
         ];

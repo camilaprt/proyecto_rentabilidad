@@ -17,7 +17,7 @@
 
         <div class="flex gap-4 items-stretch">
             <!-- Área izquierda (subir documento) -->
-            <div class="w-2/5">
+            <!-- <div class="w-2/5">
                 <label for="fileUpload" class="flex flex-col items-center justify-center w-full h-full px-4 transition bg-white border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-100 border-gray-300 text-center">
                     <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L4 7m3-3l3 3m7 4v8m0 0l3-3m-3 3l-3-3" />
@@ -27,9 +27,9 @@
                     </p>
                     <input id="fileUpload" type="file" class="hidden" />
                 </label>
-            </div>
+            </div>-->
             <!-- Área derecha de inputs, tabla y totales -->
-            <div class="w-3/5 bg-white rounded-lg px-6 py-4">
+            <div class="w-full bg-white rounded-lg px-6 py-4">
                 <!-- Inicio Inputs -->
                 <div class="flex gap-6 justify-around items-center">
                     <!-- Proveedor o Cliente Dinámico -->
@@ -125,7 +125,7 @@
                                     </td>
                                     <!-- Base Imponible -->
                                     <td class="text-sm">
-                                        <input wire:model.live.debounce.500ms="base_imp" type="number" class="block w-24 mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
+                                        <input wire:model.live.debounce.500ms="base_imp" type="number" class="block w-full mt-1 text-sm focus:border-purple-400 focus:outline-none focus:shadow-outline-purple form-input">
                                         @error('base_imp')
                                         <span class="text-red-600 text-xs">{{ $message }}</span>
                                         @enderror

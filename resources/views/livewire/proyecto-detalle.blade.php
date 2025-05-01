@@ -56,8 +56,12 @@
         <div class="resumen-grid-barra">
             <!-- Margen de rentabilidad -->
             <div class="profit-box">
+                @if($this->resumenProyecto->porcentaje != null)
                 <h2>{{ number_format($this->resumenProyecto->porcentaje, 1) }} %</h2>
                 <p>Margen rentabilidad</p>
+                @else
+                <p class="text-muted">Sin rentabilidad</p>
+                @endif
             </div>
 
             <!-- Barras -->

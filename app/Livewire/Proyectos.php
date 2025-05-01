@@ -77,6 +77,11 @@ class Proyectos extends Component
                     $proyecto->comprobantes->sum('cantidad');
 
                 $max = max($ingresos, $egresos, 1); //evita division por cero cuando creamos nuevo proyecto
+
+                $beneficio = $ingresos - $egresos;
+
+                $rentabilidad = $ingresos > 0 ? ($beneficio / $ingresos) * 100 : null;
+
                 return (object)[
                     'id' => $proyecto->id,
                     'nombre' => $proyecto->nombre,
@@ -87,8 +92,8 @@ class Proyectos extends Component
                     'egresos' => $egresos,
                     'ingresos_porc' => ($ingresos / $max) * 100, //% para la barra visual, que tenga mismo tamaño que egresos
                     'egresos_porc' => ($egresos / $max) * 100, //% para la barra visual, que tenga mismo tamaño que ingresos
-                    'beneficio' => $ingresos - $egresos,
-                    'porcentaje' => (($ingresos - $egresos) / $max) * 100,
+                    'beneficio' => $beneficio,
+                    'porcentaje' => $rentabilidad,
 
                 ];
             });
