@@ -68,7 +68,7 @@
             <div class="bar-section">
                 <!-- Ingresos -->
                 <div class="bar-row">
-                    <span class="bar-label">Entradas</span>
+                    <span class="bar-label">Ingresos</span>
                     <div class="bar-container" x-data="{ porc: {{$this->resumenProyecto->ingresos_porc}} }">
                         <div class="bar-fill-income" :style=" 'width: ' +porc + '%' "></div>
                     </div>
@@ -77,7 +77,7 @@
 
                 <!-- Egresos -->
                 <div class="bar-row">
-                    <span class="bar-label">Salidas</span>
+                    <span class="bar-label">Gastos</span>
                     <div class="bar-container" x-data="{ porc: {{$this->resumenProyecto->egresos_porc}} }">
                         <div class="bar-fill-expense" :style=" 'width: ' +porc + '%' "></div>
                     </div>
@@ -95,7 +95,7 @@
             </div>
             <div class="resumen-card">
                 <h2 style="color: teal;">{{number_format($this->resumenProyecto->egresos,2)}} €</h2>
-                <p>Egresos</p>
+                <p>Gastos</p>
             </div>
             <div class="resumen-card">
                 <h2>{{number_format($this->resumenProyecto->beneficio,2)}} €</h2>

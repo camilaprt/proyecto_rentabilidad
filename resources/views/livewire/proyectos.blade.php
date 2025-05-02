@@ -42,7 +42,7 @@
                             <!--Uso de alpine JS para manejar la clase dinamica de style en class=bar-fill -->
                             <!-- Ingresos -->
                             <div class="flex items-center justify-center" x-data="{ porc: {{$item->ingresos_porc}} }">
-                                <p class="text-xs text-gray-500 mr-2">Entradas</p>
+                                <p class="text-xs text-gray-500 mr-2">Ingresos</p>
                                 <div class="bar-container" style="width: 150px;">
                                     <div class="bar-fill-income" :style=" 'width: ' +porc + '%' "></div><!--esto no da error -->
                                 </div>
@@ -53,7 +53,7 @@
 
                             <!-- Egresos -->
                             <div class="flex items-center justify-center" x-data="{ porc: {{$item->egresos_porc}} }">
-                                <p class="text-xs text-gray-500 mr-2">Salidas</p>
+                                <p class="text-xs text-gray-500 mr-2">Gastos</p>
                                 <div class="bar-container" style="width: 150px;">
                                     <div class="bar-fill-expense" :style=" 'width: ' +porc + '%' "></div><!--esto no da error -->
                                 </div>
