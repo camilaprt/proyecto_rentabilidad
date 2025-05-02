@@ -62,6 +62,11 @@ class GestionProveedores extends Component
     //el proveedor_id lo completa el modalEliminar al abrirse
     public function eliminarProveedor()
     {
+        //comprobar que proveedor no tiene comprobantes creados
+        $comprobantes = Proveedore::withCount(['comprobantes', 'facturas'])->findOrFail($this->proveedor_id);
+        if ($comprobantes->comprobantes_count > 0 || $comprobantes->facturas_count > 0) {
+            return redirect()->to('/proveedores')->with('exists', 'El proveedor no se puede eliminar porque tiene comprobantes asociados');
+        }
         try {
             DB::transaction(function () {
                 $proveedor = Proveedore::findOrFail($this->proveedor_id);

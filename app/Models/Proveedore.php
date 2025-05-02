@@ -9,19 +9,22 @@ class Proveedore extends Model
     protected $fillable = [
         'persona_id',
     ];
-    
+
     //One to one relationship with Persona
-    public function persona(){
+    public function persona()
+    {
         return $this->belongsTo(Persona::class);
     }
 
     //One to many relationship with Comprobante
-    public function comprobantes(){
-        return $this->hasMany(Comprobante::class);
+    public function comprobantes()
+    {
+        return $this->hasMany(Comprobante::class, 'proveedores_id');
     }
 
     //One to many relationship with Factura
-    public function facturas(){
-        return $this->hasMany(Factura::class);
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class, 'proveedores_id');
     }
 }
