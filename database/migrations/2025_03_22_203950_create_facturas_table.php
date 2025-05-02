@@ -18,10 +18,10 @@ return new class extends Migration
             $table->decimal('base_imp', total: 8, places: 2);
             $table->decimal('total', total: 8, places: 2);
             $table->string('descripcion')->nullable();
-            $table->foreignId('clientes_id')->constrained('clientes');
+            $table->foreignId('clientes_id')->nullable()->constrained('clientes');
             $table->foreignId('categorias_id')->nullable()->constrained('categorias');
             $table->foreignId('proyectos_id')->constrained('proyectos');
-            $table->foreignId('proveedores_id')->constrained('proveedores');
+            $table->foreignId('proveedores_id')->nullable()->constrained('proveedores');
             $table->foreignId('tipo_factura_id')->constrained('tipo_facturas');
             $table->foreignId('tipo_impuesto_id')->constrained('tipo_impuestos');
             $table->timestamps();

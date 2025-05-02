@@ -18,10 +18,10 @@ return new class extends Migration
             $table->decimal('cantidad', total: 8, places: 2);
             $table->enum('tipo_comprobante', ['ingreso', 'gasto']);
             $table->tinyInteger('estado')->default(1);
-            $table->foreignId('clientes_id')->constrained('clientes');
+            $table->foreignId('clientes_id')->nullable()->constrained('clientes');
             $table->foreignId('categorias_id')->constrained('categorias');
             $table->foreignId('proyectos_id')->constrained('proyectos');
-            $table->foreignId('proveedores_id')->constrained('proveedores');
+            $table->foreignId('proveedores_id')->nullable()->constrained('proveedores');
             $table->timestamps();
         });
     }
