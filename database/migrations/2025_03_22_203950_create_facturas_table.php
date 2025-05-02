@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->decimal('base_imp', total: 8, places: 2);
             $table->decimal('total', total: 8, places: 2);
+            $table->string('descripcion')->nullable();
             $table->foreignId('clientes_id')->constrained('clientes');
             $table->foreignId('categorias_id')->nullable()->constrained('categorias');
             $table->foreignId('proyectos_id')->constrained('proyectos');
