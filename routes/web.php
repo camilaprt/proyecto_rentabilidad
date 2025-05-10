@@ -13,10 +13,17 @@ use App\Livewire\DetalleCategoriaCompras;
 use App\Livewire\DetalleCategoriaTickets;
 use App\Livewire\DetalleCategoriaVentas;
 
+use App\Http\Controllers\AuthController;
+
+
 
 use Illuminate\Support\Facades\Route;
 //cambiar cuando app este lista
 Route::get('/', Proyectos::class)->name('home');
+
+//Auth
+Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 
 Route::get('/clientes', GestionClientes::class)->name('clientes');
 Route::get('/proveedores', GestionProveedores::class)->name('proveedores');
