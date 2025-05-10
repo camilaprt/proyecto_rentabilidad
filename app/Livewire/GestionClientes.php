@@ -20,6 +20,7 @@ class GestionClientes extends Component
     public $modalCrear = false;
     public $modalEditar = false;
     public $modalEliminar = false;
+    public $search = '';
 
     public function abrirModalCrear()
     {
@@ -140,7 +141,14 @@ class GestionClientes extends Component
 
     public function render()
     {
-        $this->clientes = Cliente::with('persona')->get();
+        $this->clientes = Cliente::with('persona')
+            ->when($this->search, function ($query) {
+                $query->whereHas('persona', function ($q) {
+                    $q->where('nombre', 'like', '%' . $this->search . '%')
+                        ->orWhere('id_fiscal', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->get();
         return view('livewire.gestion-clientes');
     }
 }
