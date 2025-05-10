@@ -24,7 +24,7 @@
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white md:block flex-shrink-0">
       <div class="py-4 text-gray-500">
-        <a class="ml-6 text-lg font-bold text-gray-800" href="#">Proyecto Rentabilidad</a>
+        <a class="ml-6 text-lg font-bold text-gray-800" href="#">Accounix</a>
         {{-- NAV PRINCIPAL --}}
         <ul class="mt-6">
 
