@@ -16,7 +16,8 @@ use App\Livewire\DetalleCategoriaVentas;
 use App\Http\Controllers\AuthController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
-//cambiar cuando app este lista
+
+//Entry point of the app
 Route::get('/', [AuthController::class, 'showLogin'])->name('home');
 
 
@@ -27,8 +28,6 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
 });
-
-
 
 //Protect routes from unauthenticated users
 Route::middleware('auth')->group(function () {
