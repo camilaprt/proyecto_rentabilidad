@@ -17,6 +17,7 @@ class GestionProveedores extends Component
     public $modalCrear = false;
     public $modalEditar = false;
     public $modalEliminar = false;
+    public $search = '';
 
     public function abrirModalCrear()
     {
@@ -134,7 +135,14 @@ class GestionProveedores extends Component
 
     public function render()
     {
-        $this->proveedores = Proveedore::with('persona')->get();
+        $this->proveedores = Proveedore::with('persona')
+            ->when($this->search, function ($query) {
+                $query->whereHas('persona', function ($q) {
+                    $q->where('nombre', 'like', '%' . $this->search . '%')
+                        ->orWhere('id_fiscal', 'like', '%' . $this->search . '%');
+                });
+            })
+            ->get();
         return view('livewire.gestion-proveedores');
     }
 }
