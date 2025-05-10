@@ -16,6 +16,7 @@ class Compras extends Component
     public $modalEliminar = false;
     public $factura_id, $ticket_id;
     public $tipo;
+    public $search = '';
 
     public function abrirModalEliminar($id, $tipo)
     {
@@ -73,7 +74,7 @@ class Compras extends Component
     }
 
     //Junta datos de ambas tablas y los normaliza para la vista
-    public function cargarCompras()
+    /*public function cargarCompras()
     {
         // 1. Facturas con tipo = compra
         $facturas = Factura::with(['tipo_factura', 'proveedore', 'proyecto'])
@@ -120,11 +121,68 @@ class Compras extends Component
         }
 
         $this->compras->sortByDesc('fecha')->values();
-    }
+    }*/
 
     public function render()
     {
-        $this->cargarCompras();
+        // Consulta tabla facturas
+        $facturas = Factura::with(['tipo_factura', 'proveedore.persona', 'proyecto'])
+            ->whereHas('tipo_factura', fn($q) => $q->where('tipo', 'Compra'))
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('numero_fra', 'like', "%{$this->search}%")
+                        ->orWhere('descripcion', 'like', "%{$this->search}%")
+                        ->orWhereHas('proveedore.persona', fn($q) => $q->where('nombre', 'like', "%{$this->search}%"))
+                        ->orWhereHas('proyecto', fn($q) => $q->where('nombre', 'like', "%{$this->search}%"));
+                });
+            })->get();
+
+        // Consulta tabla comprobantes
+        $comprobantes = Comprobante::with(['tipo_comprobante', 'proveedore.persona', 'proyecto'])
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('numero_comprobante', 'like', "%{$this->search}%")
+                        ->orWhere('descripcion', 'like', "%{$this->search}%")
+                        ->orWhereHas('proveedore.persona', fn($q) => $q->where('nombre', 'like', "%{$this->search}%"))
+                        ->orWhereHas('proyecto', fn($q) => $q->where('nombre', 'like', "%{$this->search}%"));
+                });
+            })->get();
+
+        // Normalizar y combinar para devolver un solo objeto comun
+        $compras = collect();
+
+        foreach ($facturas as $f) {
+            $compras->push((object) [
+                'id' => $f->id,
+                'fecha' => $f->fecha,
+                'numero' => $f->numero_fra,
+                'tipo' => $f->tipo_factura->tipo ?? '',
+                'proveedor' => $f->proveedore->persona->nombre ?? '',
+                'descripcion' => $f->descripcion,
+                'proyecto' => $f->proyecto->nombre ?? '',
+                'subtotal' => $f->base_imp,
+                'total' => $f->total,
+                'origen' => 'factura',
+            ]);
+        }
+
+        foreach ($comprobantes as $c) {
+            $compras->push((object) [
+                'id' => $c->id,
+                'fecha' => $c->fecha,
+                'numero' => $c->numero_comprobante,
+                'tipo' => $c->tipo_comprobante->tipo ?? '',
+                'proveedor' => $c->proveedore->persona->nombre ?? '',
+                'descripcion' => $c->descripcion,
+                'proyecto' => $c->proyecto->nombre ?? '',
+                'subtotal' => $c->cantidad,
+                'total' => $c->cantidad,
+                'origen' => 'comprobante',
+            ]);
+        }
+
+        $compras = $compras->sortByDesc('fecha')->values();
+        $this->compras = $compras;
         return view('livewire.compras');
     }
 }
