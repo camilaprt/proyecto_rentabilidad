@@ -71,7 +71,7 @@
                             <a
                                 class="text-sm font-medium text-purple-600 hover:underline"
                                 href="{{route('show.register')}}">
-                                Create account
+                                Crear cuenta
                             </a>
                         </p>
                     </div>

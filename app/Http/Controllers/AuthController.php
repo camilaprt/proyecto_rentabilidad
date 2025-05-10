@@ -35,7 +35,7 @@ class AuthController extends Controller
         //Laravel creates a cookie session and token for the logged in user
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('proyectos');
     }
 
     public function login(Request $request)
