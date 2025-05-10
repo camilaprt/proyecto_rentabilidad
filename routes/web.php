@@ -24,6 +24,8 @@ Route::get('/', Proyectos::class)->name('home');
 //Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/clientes', GestionClientes::class)->name('clientes');
 Route::get('/proveedores', GestionProveedores::class)->name('proveedores');
