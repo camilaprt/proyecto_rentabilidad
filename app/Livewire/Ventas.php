@@ -11,6 +11,7 @@ class Ventas extends Component
     public $ventas;
     public $modalEliminar = false;
     public $factura_id;
+    public $search = '';
 
     public function abrirModalEliminar($id)
     {
@@ -48,11 +49,26 @@ class Ventas extends Component
 
     public function render()
     {
-        $this->ventas = Factura::with(['tipo_factura', 'cliente', 'proyecto'])
-            ->whereHas('tipo_factura', function ($query) {
-                $query->where('tipo', 'Venta');
+        $ventas = Factura::with(['tipo_factura', 'cliente.persona', 'proyecto'])
+            ->whereHas('tipo_factura', function ($q) {
+                $q->where('tipo', 'Venta');
             })
+            ->when($this->search, function ($query) {
+                $query->where(function ($q) {
+                    $q->where('numero_fra', 'like', "%{$this->search}%")
+                        ->orWhere('descripcion', 'like', "%{$this->search}%")
+                        ->orWhereHas('cliente.persona', function ($q) {
+                            $q->where('nombre', 'like', "%{$this->search}%");
+                        })
+                        ->orWhereHas('proyecto', function ($q) {
+                            $q->where('nombre', 'like', "%{$this->search}%");
+                        });
+                });
+            })
+            ->orderByDesc('fecha')
             ->get();
+
+        $this->ventas = $ventas;
         return view('livewire.ventas');
     }
 }
