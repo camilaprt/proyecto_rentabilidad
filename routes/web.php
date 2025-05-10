@@ -19,7 +19,8 @@ use App\Http\Controllers\AuthController;
 
 use Illuminate\Support\Facades\Route;
 //cambiar cuando app este lista
-Route::get('/', Proyectos::class)->name('home');
+Route::get('/', [AuthController::class, 'showLogin'])->name('home');
+
 
 //Auth
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');

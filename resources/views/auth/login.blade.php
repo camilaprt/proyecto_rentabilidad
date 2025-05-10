@@ -61,6 +61,9 @@
                                 Log in
                             </button>
                         </form>
+                        @error('credentials')
+                        <div class="text-red-700 text-sm mt-1">{{ $message }}</div>
+                        @enderror
 
                         <hr class="my-8" />
                         <!-- Create account  -->

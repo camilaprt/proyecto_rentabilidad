@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Container\Attributes\Auth as AttributesAuth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,6 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
@@ -38,7 +38,24 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    public function login() {}
+    public function login(Request $request)
+    {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        if (Auth::attempt($validated)) {
+            //it regenerates session id to ensure security of the session
+            $request->session()->regenerate();
+
+            return redirect()->route('proyectos');
+        }
+
+        throw ValidationException::withMessages([
+            'credentials' => "Las credenciales son incorrectas"
+        ]);
+    }
 
     public function logout(Request $request)
     {
