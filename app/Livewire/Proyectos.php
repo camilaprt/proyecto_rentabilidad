@@ -80,7 +80,7 @@ class Proyectos extends Component
 
                 $beneficio = $ingresos - $egresos;
 
-                $rentabilidad = $ingresos > 0 ? ($beneficio / $ingresos) * 100 : null;
+                $rentabilidad = $ingresos > 0 ? ($beneficio / $ingresos) * 100 : null; //evita division por cero
 
                 return (object)[
                     'id' => $proyecto->id,
