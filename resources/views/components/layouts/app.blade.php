@@ -109,6 +109,13 @@
           <!-- Línea divisoria -->
           <div class="border-t border-gray-200 mx-6 my-8"></div>
 
+          <!-- Nombre usuario activo -->
+          <li class="relative px-6 py-3">
+            <span class="text-sm font-bold text-purple-600">
+              Hola, {{Auth::user()->name}}
+            </span>
+          </li>
+
           <li class="relative px-6 py-3">
             <form action="{{ route('logout') }}" method="POST">
               @csrf
