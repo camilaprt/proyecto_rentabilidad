@@ -19,9 +19,12 @@ class Factura extends Model
         'proveedores_id',
         'clientes_id',
     ];
-    //Devuelve la fecha como un objeto carbon que luego vemos como dd-mm-YYYY
+    //Asegurar que estas variables siempre se traten a un tipo especifico
     protected $casts = [
         'fecha' => 'datetime',
+        'base_imp' => 'float',
+        'total' => 'float',
+        'tipo_impuesto_id' => 'integer',
     ];
 
 

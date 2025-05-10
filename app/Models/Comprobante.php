@@ -18,9 +18,10 @@ class Comprobante extends Model
         'tipo_comprobante_id',
     ];
 
-    //Devuelve la fecha como un objeto carbon que luego vemos como dd-mm-YYYY
+    //Asegurar que estas variables siempre se traten a un tipo especifico
     protected $casts = [
-        'fecha' => 'datetime',
+        'fecha' => 'datetime', //Devuelve la fecha como un objeto carbon que luego vemos como dd-mm-YYYY
+        'cantidad' => 'float',
     ];
 
 
