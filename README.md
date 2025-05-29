@@ -34,6 +34,6 @@ Its main purpose is to help track the profitability of individual projects by al
 
 As a final academic project, the main goal was to turn a simple idea into a working web application using real technologies and workflows. This helped me to put into practice what I had learned during the course while facing new challenges along the way.
 
-Although the app is not fully polished, it helped me understand the full development cycle and how important each step is - as every phase builds upon the last. I also identified areas to improve in future projects, like writing cleaner, more maintainable code and planning the database better to make the system easier to build and scale.
+Although the app is not fully polished, it helped me understand the full development cycle and how important each step is - as every phase builds upon the last. Moving forward, I’d like to get better at writing modular, maintainable code and planning systems in a way that makes them easier to build and scale.
 
 This project represents a learning milestone and a foundation for future development work.
